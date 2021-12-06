@@ -23,20 +23,16 @@ def p_program_sentence(p):
 
 def p_program_recursive(p):
     'program : sentence program'
-    p[0] = AST.ProgramNode([p[1]] + p[2].children)
+    p[0] = AST.ProgramNode(p[1] + p[2].children)
 
 def p_sentence_subordinate(p):
     'sentence : subordinate "."'
-    p[0] = p[1]
+    p[0] = [p[1]]
 
 def p_sentence_recursive(p):
     '''sentence : subordinate PUIS sentence
         | subordinate "," sentence'''
-    p[0] = AST.ProgramNode([p[1]] + p[3].children)
-
-def p_struct(p):
-    '''sentence : SI expression ALORS sentence SINON sentence'''
-    p[0] = AST.WhileNode([p[2], p[4]])
+    p[0] = [p[1]] + p[3]
 
 def p_print(p):
     'print : AFFICHER expression'
@@ -59,6 +55,12 @@ def p_expression_id(p):
     'expression : ID'
     p[0] = AST.TokenNode(p[1])
 
+def p_sentence_while(p):
+    'sentence : TANT QUE expression ALORS sentence'
+    p[0] = [AST.WhileNode([p[3], AST.ProgramNode(p[5])])]
+
+
+
 def p_operator(p):
     '''operator : ADDITIONNE DE %prec OP
         | SOUSTRAIT DE %prec OP
@@ -73,6 +75,9 @@ def p_expression_op(p):
 def p_error(p):
     print("Syntax error in line %d" % p.lineno)
     yacc.errok()
+
+def parse(prog):
+    return yacc.parse(prog)    
 
 yacc.yacc(outputdir="generated")
 

@@ -1,1 +1,1 @@
-a vaut 3 additionne de 2. afficher a puis afficher 3, afficher 5.
+a vaut 3 additionne de 2. afficher a puis afficher 3, afficher 5, afficher 4.

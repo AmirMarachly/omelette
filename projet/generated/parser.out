@@ -6,8 +6,9 @@ Unused terminals:
     GRAND
     PETIT
     PLUS
-    QUE
     RIEN
+    SI
+    SINON
 
 Grammar
 
@@ -17,13 +18,13 @@ Rule 2     program -> sentence program
 Rule 3     sentence -> subordinate .
 Rule 4     sentence -> subordinate PUIS sentence
 Rule 5     sentence -> subordinate , sentence
-Rule 6     sentence -> SI expression ALORS sentence SINON sentence
-Rule 7     print -> AFFICHER expression
-Rule 8     subordinate -> assign
-Rule 9     subordinate -> print
-Rule 10    assign -> ID VAUT expression
-Rule 11    expression -> NUMBER
-Rule 12    expression -> ID
+Rule 6     print -> AFFICHER expression
+Rule 7     subordinate -> assign
+Rule 8     subordinate -> print
+Rule 9     assign -> ID VAUT expression
+Rule 10    expression -> NUMBER
+Rule 11    expression -> ID
+Rule 12    sentence -> TANT QUE expression ALORS sentence
 Rule 13    operator -> ADDITIONNE DE
 Rule 14    operator -> SOUSTRAIT DE
 Rule 15    operator -> MULTIPLIE PAR
@@ -35,35 +36,36 @@ Terminals, with rules where they appear
 ,                    : 5
 .                    : 3
 ADDITIONNE           : 13
-AFFICHER             : 7
-ALORS                : 6
+AFFICHER             : 6
+ALORS                : 12
 DE                   : 13 14
 DIVISE               : 16
 EGAL                 : 
 GRAND                : 
-ID                   : 10 12
+ID                   : 9 11
 MULTIPLIE            : 15
-NUMBER               : 11
+NUMBER               : 10
 PAR                  : 15 16
 PETIT                : 
 PLUS                 : 
 PUIS                 : 4
-QUE                  : 
+QUE                  : 12
 RIEN                 : 
-SI                   : 6
-SINON                : 6
+SI                   : 
+SINON                : 
 SOUSTRAIT            : 14
-VAUT                 : 10
+TANT                 : 12
+VAUT                 : 9
 error                : 
 
 Nonterminals, with rules where they appear
 
-assign               : 8
-expression           : 6 7 10 17 17
+assign               : 7
+expression           : 6 9 12 17 17
 operator             : 17
-print                : 9
+print                : 8
 program              : 2 0
-sentence             : 1 2 4 5 6 6
+sentence             : 1 2 4 5 12
 subordinate          : 3 4 5
 
 Parsing method: LALR
@@ -76,13 +78,13 @@ state 0
     (3) sentence -> . subordinate .
     (4) sentence -> . subordinate PUIS sentence
     (5) sentence -> . subordinate , sentence
-    (6) sentence -> . SI expression ALORS sentence SINON sentence
-    (8) subordinate -> . assign
-    (9) subordinate -> . print
-    (10) assign -> . ID VAUT expression
-    (7) print -> . AFFICHER expression
+    (12) sentence -> . TANT QUE expression ALORS sentence
+    (7) subordinate -> . assign
+    (8) subordinate -> . print
+    (9) assign -> . ID VAUT expression
+    (6) print -> . AFFICHER expression
 
-    SI              shift and go to state 4
+    TANT            shift and go to state 4
     ID              shift and go to state 7
     AFFICHER        shift and go to state 8
 
@@ -107,14 +109,14 @@ state 2
     (3) sentence -> . subordinate .
     (4) sentence -> . subordinate PUIS sentence
     (5) sentence -> . subordinate , sentence
-    (6) sentence -> . SI expression ALORS sentence SINON sentence
-    (8) subordinate -> . assign
-    (9) subordinate -> . print
-    (10) assign -> . ID VAUT expression
-    (7) print -> . AFFICHER expression
+    (12) sentence -> . TANT QUE expression ALORS sentence
+    (7) subordinate -> . assign
+    (8) subordinate -> . print
+    (9) assign -> . ID VAUT expression
+    (6) print -> . AFFICHER expression
 
     $end            reduce using rule 1 (program -> sentence .)
-    SI              shift and go to state 4
+    TANT            shift and go to state 4
     ID              shift and go to state 7
     AFFICHER        shift and go to state 8
 
@@ -137,52 +139,47 @@ state 3
 
 state 4
 
-    (6) sentence -> SI . expression ALORS sentence SINON sentence
-    (11) expression -> . NUMBER
-    (12) expression -> . ID
-    (17) expression -> . expression operator expression
+    (12) sentence -> TANT . QUE expression ALORS sentence
 
-    NUMBER          shift and go to state 14
-    ID              shift and go to state 15
+    QUE             shift and go to state 13
 
-    expression                     shift and go to state 13
 
 state 5
 
-    (8) subordinate -> assign .
+    (7) subordinate -> assign .
 
-    .               reduce using rule 8 (subordinate -> assign .)
-    PUIS            reduce using rule 8 (subordinate -> assign .)
-    ,               reduce using rule 8 (subordinate -> assign .)
+    .               reduce using rule 7 (subordinate -> assign .)
+    PUIS            reduce using rule 7 (subordinate -> assign .)
+    ,               reduce using rule 7 (subordinate -> assign .)
 
 
 state 6
 
-    (9) subordinate -> print .
+    (8) subordinate -> print .
 
-    .               reduce using rule 9 (subordinate -> print .)
-    PUIS            reduce using rule 9 (subordinate -> print .)
-    ,               reduce using rule 9 (subordinate -> print .)
+    .               reduce using rule 8 (subordinate -> print .)
+    PUIS            reduce using rule 8 (subordinate -> print .)
+    ,               reduce using rule 8 (subordinate -> print .)
 
 
 state 7
 
-    (10) assign -> ID . VAUT expression
+    (9) assign -> ID . VAUT expression
 
-    VAUT            shift and go to state 16
+    VAUT            shift and go to state 14
 
 
 state 8
 
-    (7) print -> AFFICHER . expression
-    (11) expression -> . NUMBER
-    (12) expression -> . ID
+    (6) print -> AFFICHER . expression
+    (10) expression -> . NUMBER
+    (11) expression -> . ID
     (17) expression -> . expression operator expression
 
-    NUMBER          shift and go to state 14
-    ID              shift and go to state 15
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
 
-    expression                     shift and go to state 17
+    expression                     shift and go to state 15
 
 state 9
 
@@ -195,11 +192,10 @@ state 10
 
     (3) sentence -> subordinate . .
 
-    SI              reduce using rule 3 (sentence -> subordinate . .)
+    TANT            reduce using rule 3 (sentence -> subordinate . .)
     ID              reduce using rule 3 (sentence -> subordinate . .)
     AFFICHER        reduce using rule 3 (sentence -> subordinate . .)
     $end            reduce using rule 3 (sentence -> subordinate . .)
-    SINON           reduce using rule 3 (sentence -> subordinate . .)
 
 
 state 11
@@ -208,13 +204,13 @@ state 11
     (3) sentence -> . subordinate .
     (4) sentence -> . subordinate PUIS sentence
     (5) sentence -> . subordinate , sentence
-    (6) sentence -> . SI expression ALORS sentence SINON sentence
-    (8) subordinate -> . assign
-    (9) subordinate -> . print
-    (10) assign -> . ID VAUT expression
-    (7) print -> . AFFICHER expression
+    (12) sentence -> . TANT QUE expression ALORS sentence
+    (7) subordinate -> . assign
+    (8) subordinate -> . print
+    (9) assign -> . ID VAUT expression
+    (6) print -> . AFFICHER expression
 
-    SI              shift and go to state 4
+    TANT            shift and go to state 4
     ID              shift and go to state 7
     AFFICHER        shift and go to state 8
 
@@ -229,13 +225,13 @@ state 12
     (3) sentence -> . subordinate .
     (4) sentence -> . subordinate PUIS sentence
     (5) sentence -> . subordinate , sentence
-    (6) sentence -> . SI expression ALORS sentence SINON sentence
-    (8) subordinate -> . assign
-    (9) subordinate -> . print
-    (10) assign -> . ID VAUT expression
-    (7) print -> . AFFICHER expression
+    (12) sentence -> . TANT QUE expression ALORS sentence
+    (7) subordinate -> . assign
+    (8) subordinate -> . print
+    (9) assign -> . ID VAUT expression
+    (6) print -> . AFFICHER expression
 
-    SI              shift and go to state 4
+    TANT            shift and go to state 4
     ID              shift and go to state 7
     AFFICHER        shift and go to state 8
 
@@ -246,188 +242,191 @@ state 12
 
 state 13
 
-    (6) sentence -> SI expression . ALORS sentence SINON sentence
-    (17) expression -> expression . operator expression
-    (13) operator -> . ADDITIONNE DE
-    (14) operator -> . SOUSTRAIT DE
-    (15) operator -> . MULTIPLIE PAR
-    (16) operator -> . DIVISE PAR
+    (12) sentence -> TANT QUE . expression ALORS sentence
+    (10) expression -> . NUMBER
+    (11) expression -> . ID
+    (17) expression -> . expression operator expression
 
-    ALORS           shift and go to state 20
-    ADDITIONNE      shift and go to state 22
-    SOUSTRAIT       shift and go to state 23
-    MULTIPLIE       shift and go to state 24
-    DIVISE          shift and go to state 25
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
 
-    operator                       shift and go to state 21
+    expression                     shift and go to state 20
 
 state 14
 
-    (11) expression -> NUMBER .
+    (9) assign -> ID VAUT . expression
+    (10) expression -> . NUMBER
+    (11) expression -> . ID
+    (17) expression -> . expression operator expression
 
-    ALORS           reduce using rule 11 (expression -> NUMBER .)
-    ADDITIONNE      reduce using rule 11 (expression -> NUMBER .)
-    SOUSTRAIT       reduce using rule 11 (expression -> NUMBER .)
-    MULTIPLIE       reduce using rule 11 (expression -> NUMBER .)
-    DIVISE          reduce using rule 11 (expression -> NUMBER .)
-    .               reduce using rule 11 (expression -> NUMBER .)
-    PUIS            reduce using rule 11 (expression -> NUMBER .)
-    ,               reduce using rule 11 (expression -> NUMBER .)
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
 
+    expression                     shift and go to state 21
 
 state 15
 
-    (12) expression -> ID .
-
-    ALORS           reduce using rule 12 (expression -> ID .)
-    ADDITIONNE      reduce using rule 12 (expression -> ID .)
-    SOUSTRAIT       reduce using rule 12 (expression -> ID .)
-    MULTIPLIE       reduce using rule 12 (expression -> ID .)
-    DIVISE          reduce using rule 12 (expression -> ID .)
-    .               reduce using rule 12 (expression -> ID .)
-    PUIS            reduce using rule 12 (expression -> ID .)
-    ,               reduce using rule 12 (expression -> ID .)
-
-
-state 16
-
-    (10) assign -> ID VAUT . expression
-    (11) expression -> . NUMBER
-    (12) expression -> . ID
-    (17) expression -> . expression operator expression
-
-    NUMBER          shift and go to state 14
-    ID              shift and go to state 15
-
-    expression                     shift and go to state 26
-
-state 17
-
-    (7) print -> AFFICHER expression .
+    (6) print -> AFFICHER expression .
     (17) expression -> expression . operator expression
     (13) operator -> . ADDITIONNE DE
     (14) operator -> . SOUSTRAIT DE
     (15) operator -> . MULTIPLIE PAR
     (16) operator -> . DIVISE PAR
 
-    .               reduce using rule 7 (print -> AFFICHER expression .)
-    PUIS            reduce using rule 7 (print -> AFFICHER expression .)
-    ,               reduce using rule 7 (print -> AFFICHER expression .)
-    ADDITIONNE      shift and go to state 22
-    SOUSTRAIT       shift and go to state 23
-    MULTIPLIE       shift and go to state 24
-    DIVISE          shift and go to state 25
+    .               reduce using rule 6 (print -> AFFICHER expression .)
+    PUIS            reduce using rule 6 (print -> AFFICHER expression .)
+    ,               reduce using rule 6 (print -> AFFICHER expression .)
+    ADDITIONNE      shift and go to state 23
+    SOUSTRAIT       shift and go to state 24
+    MULTIPLIE       shift and go to state 25
+    DIVISE          shift and go to state 26
 
-    operator                       shift and go to state 21
+    operator                       shift and go to state 22
+
+state 16
+
+    (10) expression -> NUMBER .
+
+    ADDITIONNE      reduce using rule 10 (expression -> NUMBER .)
+    SOUSTRAIT       reduce using rule 10 (expression -> NUMBER .)
+    MULTIPLIE       reduce using rule 10 (expression -> NUMBER .)
+    DIVISE          reduce using rule 10 (expression -> NUMBER .)
+    .               reduce using rule 10 (expression -> NUMBER .)
+    PUIS            reduce using rule 10 (expression -> NUMBER .)
+    ,               reduce using rule 10 (expression -> NUMBER .)
+    ALORS           reduce using rule 10 (expression -> NUMBER .)
+
+
+state 17
+
+    (11) expression -> ID .
+
+    ADDITIONNE      reduce using rule 11 (expression -> ID .)
+    SOUSTRAIT       reduce using rule 11 (expression -> ID .)
+    MULTIPLIE       reduce using rule 11 (expression -> ID .)
+    DIVISE          reduce using rule 11 (expression -> ID .)
+    .               reduce using rule 11 (expression -> ID .)
+    PUIS            reduce using rule 11 (expression -> ID .)
+    ,               reduce using rule 11 (expression -> ID .)
+    ALORS           reduce using rule 11 (expression -> ID .)
+
 
 state 18
 
     (4) sentence -> subordinate PUIS sentence .
 
-    SI              reduce using rule 4 (sentence -> subordinate PUIS sentence .)
+    TANT            reduce using rule 4 (sentence -> subordinate PUIS sentence .)
     ID              reduce using rule 4 (sentence -> subordinate PUIS sentence .)
     AFFICHER        reduce using rule 4 (sentence -> subordinate PUIS sentence .)
     $end            reduce using rule 4 (sentence -> subordinate PUIS sentence .)
-    SINON           reduce using rule 4 (sentence -> subordinate PUIS sentence .)
 
 
 state 19
 
     (5) sentence -> subordinate , sentence .
 
-    SI              reduce using rule 5 (sentence -> subordinate , sentence .)
+    TANT            reduce using rule 5 (sentence -> subordinate , sentence .)
     ID              reduce using rule 5 (sentence -> subordinate , sentence .)
     AFFICHER        reduce using rule 5 (sentence -> subordinate , sentence .)
     $end            reduce using rule 5 (sentence -> subordinate , sentence .)
-    SINON           reduce using rule 5 (sentence -> subordinate , sentence .)
 
 
 state 20
 
-    (6) sentence -> SI expression ALORS . sentence SINON sentence
-    (3) sentence -> . subordinate .
-    (4) sentence -> . subordinate PUIS sentence
-    (5) sentence -> . subordinate , sentence
-    (6) sentence -> . SI expression ALORS sentence SINON sentence
-    (8) subordinate -> . assign
-    (9) subordinate -> . print
-    (10) assign -> . ID VAUT expression
-    (7) print -> . AFFICHER expression
-
-    SI              shift and go to state 4
-    ID              shift and go to state 7
-    AFFICHER        shift and go to state 8
-
-    sentence                       shift and go to state 27
-    subordinate                    shift and go to state 3
-    assign                         shift and go to state 5
-    print                          shift and go to state 6
-
-state 21
-
-    (17) expression -> expression operator . expression
-    (11) expression -> . NUMBER
-    (12) expression -> . ID
-    (17) expression -> . expression operator expression
-
-    NUMBER          shift and go to state 14
-    ID              shift and go to state 15
-
-    expression                     shift and go to state 28
-
-state 22
-
-    (13) operator -> ADDITIONNE . DE
-
-    DE              shift and go to state 29
-
-
-state 23
-
-    (14) operator -> SOUSTRAIT . DE
-
-    DE              shift and go to state 30
-
-
-state 24
-
-    (15) operator -> MULTIPLIE . PAR
-
-    PAR             shift and go to state 31
-
-
-state 25
-
-    (16) operator -> DIVISE . PAR
-
-    PAR             shift and go to state 32
-
-
-state 26
-
-    (10) assign -> ID VAUT expression .
+    (12) sentence -> TANT QUE expression . ALORS sentence
     (17) expression -> expression . operator expression
     (13) operator -> . ADDITIONNE DE
     (14) operator -> . SOUSTRAIT DE
     (15) operator -> . MULTIPLIE PAR
     (16) operator -> . DIVISE PAR
 
-    .               reduce using rule 10 (assign -> ID VAUT expression .)
-    PUIS            reduce using rule 10 (assign -> ID VAUT expression .)
-    ,               reduce using rule 10 (assign -> ID VAUT expression .)
-    ADDITIONNE      shift and go to state 22
-    SOUSTRAIT       shift and go to state 23
-    MULTIPLIE       shift and go to state 24
-    DIVISE          shift and go to state 25
+    ALORS           shift and go to state 27
+    ADDITIONNE      shift and go to state 23
+    SOUSTRAIT       shift and go to state 24
+    MULTIPLIE       shift and go to state 25
+    DIVISE          shift and go to state 26
 
-    operator                       shift and go to state 21
+    operator                       shift and go to state 22
+
+state 21
+
+    (9) assign -> ID VAUT expression .
+    (17) expression -> expression . operator expression
+    (13) operator -> . ADDITIONNE DE
+    (14) operator -> . SOUSTRAIT DE
+    (15) operator -> . MULTIPLIE PAR
+    (16) operator -> . DIVISE PAR
+
+    .               reduce using rule 9 (assign -> ID VAUT expression .)
+    PUIS            reduce using rule 9 (assign -> ID VAUT expression .)
+    ,               reduce using rule 9 (assign -> ID VAUT expression .)
+    ADDITIONNE      shift and go to state 23
+    SOUSTRAIT       shift and go to state 24
+    MULTIPLIE       shift and go to state 25
+    DIVISE          shift and go to state 26
+
+    operator                       shift and go to state 22
+
+state 22
+
+    (17) expression -> expression operator . expression
+    (10) expression -> . NUMBER
+    (11) expression -> . ID
+    (17) expression -> . expression operator expression
+
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
+
+    expression                     shift and go to state 28
+
+state 23
+
+    (13) operator -> ADDITIONNE . DE
+
+    DE              shift and go to state 29
+
+
+state 24
+
+    (14) operator -> SOUSTRAIT . DE
+
+    DE              shift and go to state 30
+
+
+state 25
+
+    (15) operator -> MULTIPLIE . PAR
+
+    PAR             shift and go to state 31
+
+
+state 26
+
+    (16) operator -> DIVISE . PAR
+
+    PAR             shift and go to state 32
+
 
 state 27
 
-    (6) sentence -> SI expression ALORS sentence . SINON sentence
+    (12) sentence -> TANT QUE expression ALORS . sentence
+    (3) sentence -> . subordinate .
+    (4) sentence -> . subordinate PUIS sentence
+    (5) sentence -> . subordinate , sentence
+    (12) sentence -> . TANT QUE expression ALORS sentence
+    (7) subordinate -> . assign
+    (8) subordinate -> . print
+    (9) assign -> . ID VAUT expression
+    (6) print -> . AFFICHER expression
 
-    SINON           shift and go to state 33
+    TANT            shift and go to state 4
+    ID              shift and go to state 7
+    AFFICHER        shift and go to state 8
 
+    sentence                       shift and go to state 33
+    subordinate                    shift and go to state 3
+    assign                         shift and go to state 5
+    print                          shift and go to state 6
 
 state 28
 
@@ -438,7 +437,6 @@ state 28
     (15) operator -> . MULTIPLIE PAR
     (16) operator -> . DIVISE PAR
 
-    ALORS           reduce using rule 17 (expression -> expression operator expression .)
     ADDITIONNE      reduce using rule 17 (expression -> expression operator expression .)
     SOUSTRAIT       reduce using rule 17 (expression -> expression operator expression .)
     MULTIPLIE       reduce using rule 17 (expression -> expression operator expression .)
@@ -446,13 +444,14 @@ state 28
     .               reduce using rule 17 (expression -> expression operator expression .)
     PUIS            reduce using rule 17 (expression -> expression operator expression .)
     ,               reduce using rule 17 (expression -> expression operator expression .)
+    ALORS           reduce using rule 17 (expression -> expression operator expression .)
 
-  ! ADDITIONNE      [ shift and go to state 22 ]
-  ! SOUSTRAIT       [ shift and go to state 23 ]
-  ! MULTIPLIE       [ shift and go to state 24 ]
-  ! DIVISE          [ shift and go to state 25 ]
+  ! ADDITIONNE      [ shift and go to state 23 ]
+  ! SOUSTRAIT       [ shift and go to state 24 ]
+  ! MULTIPLIE       [ shift and go to state 25 ]
+  ! DIVISE          [ shift and go to state 26 ]
 
-    operator                       shift and go to state 21
+    operator                       shift and go to state 22
 
 state 29
 
@@ -488,32 +487,10 @@ state 32
 
 state 33
 
-    (6) sentence -> SI expression ALORS sentence SINON . sentence
-    (3) sentence -> . subordinate .
-    (4) sentence -> . subordinate PUIS sentence
-    (5) sentence -> . subordinate , sentence
-    (6) sentence -> . SI expression ALORS sentence SINON sentence
-    (8) subordinate -> . assign
-    (9) subordinate -> . print
-    (10) assign -> . ID VAUT expression
-    (7) print -> . AFFICHER expression
+    (12) sentence -> TANT QUE expression ALORS sentence .
 
-    SI              shift and go to state 4
-    ID              shift and go to state 7
-    AFFICHER        shift and go to state 8
-
-    sentence                       shift and go to state 34
-    subordinate                    shift and go to state 3
-    assign                         shift and go to state 5
-    print                          shift and go to state 6
-
-state 34
-
-    (6) sentence -> SI expression ALORS sentence SINON sentence .
-
-    SI              reduce using rule 6 (sentence -> SI expression ALORS sentence SINON sentence .)
-    ID              reduce using rule 6 (sentence -> SI expression ALORS sentence SINON sentence .)
-    AFFICHER        reduce using rule 6 (sentence -> SI expression ALORS sentence SINON sentence .)
-    $end            reduce using rule 6 (sentence -> SI expression ALORS sentence SINON sentence .)
-    SINON           reduce using rule 6 (sentence -> SI expression ALORS sentence SINON sentence .)
+    TANT            reduce using rule 12 (sentence -> TANT QUE expression ALORS sentence .)
+    ID              reduce using rule 12 (sentence -> TANT QUE expression ALORS sentence .)
+    AFFICHER        reduce using rule 12 (sentence -> TANT QUE expression ALORS sentence .)
+    $end            reduce using rule 12 (sentence -> TANT QUE expression ALORS sentence .)
 

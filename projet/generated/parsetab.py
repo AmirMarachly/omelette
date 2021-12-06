@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftOPleftIDleftVAUTADDITIONNE AFFICHER ALORS DE DIVISE EGAL GRAND ID MULTIPLIE NUMBER PAR PETIT PLUS PUIS QUE RIEN SI SINON SOUSTRAIT VAUTprogram : sentenceprogram : sentence programsentence : subordinate "."sentence : subordinate PUIS sentence\n        | subordinate "," sentencesentence : SI expression ALORS sentence SINON sentenceprint : AFFICHER expressionsubordinate : assign\n        | printassign : ID VAUT expressionexpression : NUMBERexpression : IDoperator : ADDITIONNE DE %prec OP\n        | SOUSTRAIT DE %prec OP\n        | MULTIPLIE PAR %prec OP\n        | DIVISE PAR %prec OPexpression : expression operator expression %prec OP'
+_lr_signature = 'leftOPleftIDleftVAUTADDITIONNE AFFICHER ALORS DE DIVISE EGAL GRAND ID MULTIPLIE NUMBER PAR PETIT PLUS PUIS QUE RIEN SI SINON SOUSTRAIT TANT VAUTprogram : sentenceprogram : sentence programsentence : subordinate "."sentence : subordinate PUIS sentence\n        | subordinate "," sentenceprint : AFFICHER expressionsubordinate : assign\n        | printassign : ID VAUT expressionexpression : NUMBERexpression : IDsentence : TANT QUE expression ALORS sentenceoperator : ADDITIONNE DE %prec OP\n        | SOUSTRAIT DE %prec OP\n        | MULTIPLIE PAR %prec OP\n        | DIVISE PAR %prec OPexpression : expression operator expression %prec OP'
     
-_lr_action_items = {'SI':([0,2,10,11,12,18,19,20,33,34,],[4,4,-3,4,4,-4,-5,4,4,-6,]),'ID':([0,2,4,8,10,11,12,16,18,19,20,21,29,30,31,32,33,34,],[7,7,15,15,-3,7,7,15,-4,-5,7,15,-13,-14,-15,-16,7,-6,]),'AFFICHER':([0,2,10,11,12,18,19,20,33,34,],[8,8,-3,8,8,-4,-5,8,8,-6,]),'$end':([1,2,9,10,18,19,34,],[0,-1,-2,-3,-4,-5,-6,]),'.':([3,5,6,14,15,17,26,28,],[10,-8,-9,-11,-12,-7,-10,-17,]),'PUIS':([3,5,6,14,15,17,26,28,],[11,-8,-9,-11,-12,-7,-10,-17,]),',':([3,5,6,14,15,17,26,28,],[12,-8,-9,-11,-12,-7,-10,-17,]),'NUMBER':([4,8,16,21,29,30,31,32,],[14,14,14,14,-13,-14,-15,-16,]),'VAUT':([7,],[16,]),'SINON':([10,18,19,27,34,],[-3,-4,-5,33,-6,]),'ALORS':([13,14,15,28,],[20,-11,-12,-17,]),'ADDITIONNE':([13,14,15,17,26,28,],[22,-11,-12,22,22,-17,]),'SOUSTRAIT':([13,14,15,17,26,28,],[23,-11,-12,23,23,-17,]),'MULTIPLIE':([13,14,15,17,26,28,],[24,-11,-12,24,24,-17,]),'DIVISE':([13,14,15,17,26,28,],[25,-11,-12,25,25,-17,]),'DE':([22,23,],[29,30,]),'PAR':([24,25,],[31,32,]),}
+_lr_action_items = {'TANT':([0,2,10,11,12,18,19,27,33,],[4,4,-3,4,4,-4,-5,4,-12,]),'ID':([0,2,8,10,11,12,13,14,18,19,22,27,29,30,31,32,33,],[7,7,17,-3,7,7,17,17,-4,-5,17,7,-13,-14,-15,-16,-12,]),'AFFICHER':([0,2,10,11,12,18,19,27,33,],[8,8,-3,8,8,-4,-5,8,-12,]),'$end':([1,2,9,10,18,19,33,],[0,-1,-2,-3,-4,-5,-12,]),'.':([3,5,6,15,16,17,21,28,],[10,-7,-8,-6,-10,-11,-9,-17,]),'PUIS':([3,5,6,15,16,17,21,28,],[11,-7,-8,-6,-10,-11,-9,-17,]),',':([3,5,6,15,16,17,21,28,],[12,-7,-8,-6,-10,-11,-9,-17,]),'QUE':([4,],[13,]),'VAUT':([7,],[14,]),'NUMBER':([8,13,14,22,29,30,31,32,],[16,16,16,16,-13,-14,-15,-16,]),'ADDITIONNE':([15,16,17,20,21,28,],[23,-10,-11,23,23,-17,]),'SOUSTRAIT':([15,16,17,20,21,28,],[24,-10,-11,24,24,-17,]),'MULTIPLIE':([15,16,17,20,21,28,],[25,-10,-11,25,25,-17,]),'DIVISE':([15,16,17,20,21,28,],[26,-10,-11,26,26,-17,]),'ALORS':([16,17,20,28,],[-10,-11,27,-17,]),'DE':([23,24,],[29,30,]),'PAR':([25,26,],[31,32,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'program':([0,2,],[1,9,]),'sentence':([0,2,11,12,20,33,],[2,2,18,19,27,34,]),'subordinate':([0,2,11,12,20,33,],[3,3,3,3,3,3,]),'assign':([0,2,11,12,20,33,],[5,5,5,5,5,5,]),'print':([0,2,11,12,20,33,],[6,6,6,6,6,6,]),'expression':([4,8,16,21,],[13,17,26,28,]),'operator':([13,17,26,28,],[21,21,21,21,]),}
+_lr_goto_items = {'program':([0,2,],[1,9,]),'sentence':([0,2,11,12,27,],[2,2,18,19,33,]),'subordinate':([0,2,11,12,27,],[3,3,3,3,3,]),'assign':([0,2,11,12,27,],[5,5,5,5,5,]),'print':([0,2,11,12,27,],[6,6,6,6,6,]),'expression':([8,13,14,22,],[15,20,21,28,]),'operator':([15,20,21,28,],[22,22,22,22,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -32,13 +32,13 @@ _lr_productions = [
   ('sentence -> subordinate .','sentence',2,'p_sentence_subordinate','parser5.py',29),
   ('sentence -> subordinate PUIS sentence','sentence',3,'p_sentence_recursive','parser5.py',33),
   ('sentence -> subordinate , sentence','sentence',3,'p_sentence_recursive','parser5.py',34),
-  ('sentence -> SI expression ALORS sentence SINON sentence','sentence',6,'p_struct','parser5.py',38),
-  ('print -> AFFICHER expression','print',2,'p_print','parser5.py',42),
-  ('subordinate -> assign','subordinate',1,'p_subordinate_assign','parser5.py',46),
-  ('subordinate -> print','subordinate',1,'p_subordinate_assign','parser5.py',47),
-  ('assign -> ID VAUT expression','assign',3,'p_assign','parser5.py',51),
-  ('expression -> NUMBER','expression',1,'p_expression_num','parser5.py',55),
-  ('expression -> ID','expression',1,'p_expression_id','parser5.py',59),
+  ('print -> AFFICHER expression','print',2,'p_print','parser5.py',38),
+  ('subordinate -> assign','subordinate',1,'p_subordinate_assign','parser5.py',42),
+  ('subordinate -> print','subordinate',1,'p_subordinate_assign','parser5.py',43),
+  ('assign -> ID VAUT expression','assign',3,'p_assign','parser5.py',47),
+  ('expression -> NUMBER','expression',1,'p_expression_num','parser5.py',51),
+  ('expression -> ID','expression',1,'p_expression_id','parser5.py',55),
+  ('sentence -> TANT QUE expression ALORS sentence','sentence',5,'p_sentence_while','parser5.py',59),
   ('operator -> ADDITIONNE DE','operator',2,'p_operator','parser5.py',63),
   ('operator -> SOUSTRAIT DE','operator',2,'p_operator','parser5.py',64),
   ('operator -> MULTIPLIE PAR','operator',2,'p_operator','parser5.py',65),

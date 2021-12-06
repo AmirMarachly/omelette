@@ -18,7 +18,8 @@ reserved_words = (
     'grand',
     'petit',
     'que',
-    'egal'
+    'egal',
+    'tant'
 )
 
 tokens = (
