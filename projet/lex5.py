@@ -3,10 +3,22 @@ import ply.lex as lex
 reserved_words = (
     'additionne',
     'soustrait',
+    'multiplie',
+    'divise',
     'de',
+    'par',
     'vaut',
     'puis',
-    'afficher'
+    'afficher',
+    'si',
+    'alors',
+    'sinon',
+    'rien',
+    'plus',
+    'grand',
+    'petit',
+    'que',
+    'egal'
 )
 
 tokens = (

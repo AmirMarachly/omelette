@@ -12,7 +12,9 @@ precedence = (
 
 operators = {
     "additionne" : lambda x,y: x+y,
-    "soustrait" : lambda x,y: x-y
+    "soustrait" : lambda x,y: x-y,
+    "multiplie" : lambda x,y: x*y,
+    "divise" : lambda x,y: x/y
 }
 
 def p_program_sentence(p):
@@ -30,8 +32,11 @@ def p_sentence_subordinate(p):
 def p_sentence_recursive(p):
     '''sentence : subordinate PUIS sentence
         | subordinate "," sentence'''
-    #A MODIFIER
     p[0] = AST.ProgramNode([p[1]] + p[3].children)
+
+def p_struct(p):
+    '''sentence : SI expression ALORS sentence SINON sentence'''
+    p[0] = AST.WhileNode([p[2], p[4]])
 
 def p_print(p):
     'print : AFFICHER expression'
@@ -56,7 +61,9 @@ def p_expression_id(p):
 
 def p_operator(p):
     '''operator : ADDITIONNE DE %prec OP
-        | SOUSTRAIT DE %prec OP'''
+        | SOUSTRAIT DE %prec OP
+        | MULTIPLIE PAR %prec OP
+        | DIVISE PAR %prec OP'''
     p[0] = p[1]
     
 def p_expression_op(p):

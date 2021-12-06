@@ -1,2 +1,1 @@
-a = 4;
-print a
+afficher 4 divise par 5.
