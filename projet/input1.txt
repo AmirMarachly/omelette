@@ -1,0 +1,4 @@
+Tant que variable est plus petit que 3 alors, afficher variable. Additionner variable de 3 puis afficher variable.
+
+Test devient vrai.
+Si test alors, test devient faux.

@@ -1,0 +1,341 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> sentence
+Rule 2     program -> sentence program
+Rule 3     sentence -> subordinate .
+Rule 4     sentence -> subordinate PUIS sentence
+Rule 5     sentence -> subordinate , sentence
+Rule 6     print -> AFFICHER expression
+Rule 7     subordinate -> assign
+Rule 8     subordinate -> print
+Rule 9     assign -> ID VAUT expression
+Rule 10    expression -> NUMBER
+Rule 11    expression -> ID
+Rule 12    operator -> ADDITIONNE DE
+Rule 13    operator -> SOUSTRAIT DE
+Rule 14    expression -> expression operator expression
+
+Terminals, with rules where they appear
+
+,                    : 5
+.                    : 3
+ADDITIONNE           : 12
+AFFICHER             : 6
+DE                   : 12 13
+ID                   : 9 11
+NUMBER               : 10
+PUIS                 : 4
+SOUSTRAIT            : 13
+VAUT                 : 9
+error                : 
+
+Nonterminals, with rules where they appear
+
+assign               : 7
+expression           : 6 9 14 14
+operator             : 14
+print                : 8
+program              : 2 0
+sentence             : 1 2 4 5
+subordinate          : 3 4 5
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . sentence
+    (2) program -> . sentence program
+    (3) sentence -> . subordinate .
+    (4) sentence -> . subordinate PUIS sentence
+    (5) sentence -> . subordinate , sentence
+    (7) subordinate -> . assign
+    (8) subordinate -> . print
+    (9) assign -> . ID VAUT expression
+    (6) print -> . AFFICHER expression
+
+    ID              shift and go to state 6
+    AFFICHER        shift and go to state 7
+
+    program                        shift and go to state 1
+    sentence                       shift and go to state 2
+    subordinate                    shift and go to state 3
+    assign                         shift and go to state 4
+    print                          shift and go to state 5
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> sentence .
+    (2) program -> sentence . program
+    (1) program -> . sentence
+    (2) program -> . sentence program
+    (3) sentence -> . subordinate .
+    (4) sentence -> . subordinate PUIS sentence
+    (5) sentence -> . subordinate , sentence
+    (7) subordinate -> . assign
+    (8) subordinate -> . print
+    (9) assign -> . ID VAUT expression
+    (6) print -> . AFFICHER expression
+
+    $end            reduce using rule 1 (program -> sentence .)
+    ID              shift and go to state 6
+    AFFICHER        shift and go to state 7
+
+    sentence                       shift and go to state 2
+    program                        shift and go to state 8
+    subordinate                    shift and go to state 3
+    assign                         shift and go to state 4
+    print                          shift and go to state 5
+
+state 3
+
+    (3) sentence -> subordinate . .
+    (4) sentence -> subordinate . PUIS sentence
+    (5) sentence -> subordinate . , sentence
+
+    .               shift and go to state 9
+    PUIS            shift and go to state 10
+    ,               shift and go to state 11
+
+
+state 4
+
+    (7) subordinate -> assign .
+
+    .               reduce using rule 7 (subordinate -> assign .)
+    PUIS            reduce using rule 7 (subordinate -> assign .)
+    ,               reduce using rule 7 (subordinate -> assign .)
+
+
+state 5
+
+    (8) subordinate -> print .
+
+    .               reduce using rule 8 (subordinate -> print .)
+    PUIS            reduce using rule 8 (subordinate -> print .)
+    ,               reduce using rule 8 (subordinate -> print .)
+
+
+state 6
+
+    (9) assign -> ID . VAUT expression
+
+    VAUT            shift and go to state 12
+
+
+state 7
+
+    (6) print -> AFFICHER . expression
+    (10) expression -> . NUMBER
+    (11) expression -> . ID
+    (14) expression -> . expression operator expression
+
+    NUMBER          shift and go to state 14
+    ID              shift and go to state 15
+
+    expression                     shift and go to state 13
+
+state 8
+
+    (2) program -> sentence program .
+
+    $end            reduce using rule 2 (program -> sentence program .)
+
+
+state 9
+
+    (3) sentence -> subordinate . .
+
+    ID              reduce using rule 3 (sentence -> subordinate . .)
+    AFFICHER        reduce using rule 3 (sentence -> subordinate . .)
+    $end            reduce using rule 3 (sentence -> subordinate . .)
+
+
+state 10
+
+    (4) sentence -> subordinate PUIS . sentence
+    (3) sentence -> . subordinate .
+    (4) sentence -> . subordinate PUIS sentence
+    (5) sentence -> . subordinate , sentence
+    (7) subordinate -> . assign
+    (8) subordinate -> . print
+    (9) assign -> . ID VAUT expression
+    (6) print -> . AFFICHER expression
+
+    ID              shift and go to state 6
+    AFFICHER        shift and go to state 7
+
+    subordinate                    shift and go to state 3
+    sentence                       shift and go to state 16
+    assign                         shift and go to state 4
+    print                          shift and go to state 5
+
+state 11
+
+    (5) sentence -> subordinate , . sentence
+    (3) sentence -> . subordinate .
+    (4) sentence -> . subordinate PUIS sentence
+    (5) sentence -> . subordinate , sentence
+    (7) subordinate -> . assign
+    (8) subordinate -> . print
+    (9) assign -> . ID VAUT expression
+    (6) print -> . AFFICHER expression
+
+    ID              shift and go to state 6
+    AFFICHER        shift and go to state 7
+
+    subordinate                    shift and go to state 3
+    sentence                       shift and go to state 17
+    assign                         shift and go to state 4
+    print                          shift and go to state 5
+
+state 12
+
+    (9) assign -> ID VAUT . expression
+    (10) expression -> . NUMBER
+    (11) expression -> . ID
+    (14) expression -> . expression operator expression
+
+    NUMBER          shift and go to state 14
+    ID              shift and go to state 15
+
+    expression                     shift and go to state 18
+
+state 13
+
+    (6) print -> AFFICHER expression .
+    (14) expression -> expression . operator expression
+    (12) operator -> . ADDITIONNE DE
+    (13) operator -> . SOUSTRAIT DE
+
+    .               reduce using rule 6 (print -> AFFICHER expression .)
+    PUIS            reduce using rule 6 (print -> AFFICHER expression .)
+    ,               reduce using rule 6 (print -> AFFICHER expression .)
+    ADDITIONNE      shift and go to state 20
+    SOUSTRAIT       shift and go to state 21
+
+    operator                       shift and go to state 19
+
+state 14
+
+    (10) expression -> NUMBER .
+
+    ADDITIONNE      reduce using rule 10 (expression -> NUMBER .)
+    SOUSTRAIT       reduce using rule 10 (expression -> NUMBER .)
+    .               reduce using rule 10 (expression -> NUMBER .)
+    PUIS            reduce using rule 10 (expression -> NUMBER .)
+    ,               reduce using rule 10 (expression -> NUMBER .)
+
+
+state 15
+
+    (11) expression -> ID .
+
+    ADDITIONNE      reduce using rule 11 (expression -> ID .)
+    SOUSTRAIT       reduce using rule 11 (expression -> ID .)
+    .               reduce using rule 11 (expression -> ID .)
+    PUIS            reduce using rule 11 (expression -> ID .)
+    ,               reduce using rule 11 (expression -> ID .)
+
+
+state 16
+
+    (4) sentence -> subordinate PUIS sentence .
+
+    ID              reduce using rule 4 (sentence -> subordinate PUIS sentence .)
+    AFFICHER        reduce using rule 4 (sentence -> subordinate PUIS sentence .)
+    $end            reduce using rule 4 (sentence -> subordinate PUIS sentence .)
+
+
+state 17
+
+    (5) sentence -> subordinate , sentence .
+
+    ID              reduce using rule 5 (sentence -> subordinate , sentence .)
+    AFFICHER        reduce using rule 5 (sentence -> subordinate , sentence .)
+    $end            reduce using rule 5 (sentence -> subordinate , sentence .)
+
+
+state 18
+
+    (9) assign -> ID VAUT expression .
+    (14) expression -> expression . operator expression
+    (12) operator -> . ADDITIONNE DE
+    (13) operator -> . SOUSTRAIT DE
+
+    .               reduce using rule 9 (assign -> ID VAUT expression .)
+    PUIS            reduce using rule 9 (assign -> ID VAUT expression .)
+    ,               reduce using rule 9 (assign -> ID VAUT expression .)
+    ADDITIONNE      shift and go to state 20
+    SOUSTRAIT       shift and go to state 21
+
+    operator                       shift and go to state 19
+
+state 19
+
+    (14) expression -> expression operator . expression
+    (10) expression -> . NUMBER
+    (11) expression -> . ID
+    (14) expression -> . expression operator expression
+
+    NUMBER          shift and go to state 14
+    ID              shift and go to state 15
+
+    expression                     shift and go to state 22
+
+state 20
+
+    (12) operator -> ADDITIONNE . DE
+
+    DE              shift and go to state 23
+
+
+state 21
+
+    (13) operator -> SOUSTRAIT . DE
+
+    DE              shift and go to state 24
+
+
+state 22
+
+    (14) expression -> expression operator expression .
+    (14) expression -> expression . operator expression
+    (12) operator -> . ADDITIONNE DE
+    (13) operator -> . SOUSTRAIT DE
+
+    ADDITIONNE      reduce using rule 14 (expression -> expression operator expression .)
+    SOUSTRAIT       reduce using rule 14 (expression -> expression operator expression .)
+    .               reduce using rule 14 (expression -> expression operator expression .)
+    PUIS            reduce using rule 14 (expression -> expression operator expression .)
+    ,               reduce using rule 14 (expression -> expression operator expression .)
+
+  ! ADDITIONNE      [ shift and go to state 20 ]
+  ! SOUSTRAIT       [ shift and go to state 21 ]
+
+    operator                       shift and go to state 19
+
+state 23
+
+    (12) operator -> ADDITIONNE DE .
+
+    NUMBER          reduce using rule 12 (operator -> ADDITIONNE DE .)
+    ID              reduce using rule 12 (operator -> ADDITIONNE DE .)
+
+
+state 24
+
+    (13) operator -> SOUSTRAIT DE .
+
+    NUMBER          reduce using rule 13 (operator -> SOUSTRAIT DE .)
+    ID              reduce using rule 13 (operator -> SOUSTRAIT DE .)
+
