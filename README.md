@@ -1,4 +1,4 @@
-# omlette
+# omelette
 Dans le cadre du cours *Compilateur* de 3<sup>ème</sup> année à la HE-Arc, un programme de compilation doit être réalisé sous forme de projet. 
 
 Il doit:
