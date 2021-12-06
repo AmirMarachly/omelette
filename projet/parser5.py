@@ -2,7 +2,7 @@ import ply.yacc as yacc
 import AST
 from lex5 import tokens
 
-vars = {}
+func = {}
 
 precedence = (
     ('left', 'OP'),
@@ -42,6 +42,21 @@ def p_subordinate_assign(p):
     '''subordinate : assign
         | print'''
     p[0] = p[1]
+    
+
+def p_args(p):
+    'args : ID'
+    p[0] = [p[1]]
+
+def p_args_rec(p):
+    'args : ID args'
+    p[0] = [p[1]] + p[2]
+
+def p_definefunction(p):
+    '''sentence : DEFINIR ID AVEC args ":" sentence'''
+    p[0] = AST.defineNode(p[2], p[4], [AST.ProgramNode(p[6])])
+
+
 
 def p_assign(p):
     'assign : ID VAUT expression'
@@ -58,8 +73,6 @@ def p_expression_id(p):
 def p_sentence_while(p):
     'sentence : TANT QUE expression ALORS sentence'
     p[0] = [AST.WhileNode([p[3], AST.ProgramNode(p[5])])]
-
-
 
 def p_operator(p):
     '''operator : ADDITIONNE DE %prec OP

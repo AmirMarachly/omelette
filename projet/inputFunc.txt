@@ -1,0 +1,1 @@
+definir func avec x y : afficher 3.

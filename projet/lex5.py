@@ -19,7 +19,10 @@ reserved_words = (
     'petit',
     'que',
     'egal',
-    'tant'
+    'tant',
+
+    'definir',
+    'avec'
 )
 
 tokens = (
@@ -27,7 +30,7 @@ tokens = (
     'ID',
     ) + tuple(map(lambda s:s.upper(), reserved_words))
 
-literals = '.,'
+literals = '.,:'
 
 def t_NUMBER(t):
     r'([0-9]*[.])?[0-9]+'
