@@ -6,7 +6,13 @@ operations = {
     "additionne" : lambda x,y: x+y,
     "soustrait" : lambda x,y: x-y,
     "multiplie" : lambda x,y: x*y,
-    "divise" : lambda x,y: x/y
+    "divise" : lambda x,y: x/y,
+    "plus grand" : lambda x,y: x>y,
+    "plus petit" : lambda x,y: x<y,
+    "moins grand" : lambda x,y: x<y,
+    "moins petit" : lambda x,y: x>y,
+    "plus grand que ou egal" : lambda x, y: x>=y,
+    "plus petit que ou egal" : lambda x, y: x<=y
 }
 
 vars = {}
@@ -50,6 +56,14 @@ def execute(self):
 def execute(self):
     while self.children[0].execute():
         self.children[1].execute()
+
+
+@addToClass(AST.CompareNode)
+def execute(self):
+    if self.children[0].execute():
+        self.children[1].execute()
+    else:
+        self.children[2].execute()
 
 
 if __name__ == '__main__':
