@@ -9,6 +9,12 @@ operations = {
     "divise" : lambda x,y: x/y
 }
 
+types = {
+    "text" : str,
+    "nombre" : float,
+    "booleen" : bool 
+}
+
 vars = {}
 
 
@@ -24,6 +30,7 @@ def execute(self):
         try:
             return vars[self.tok]
         except KeyError:
+            #TODO
             print("*** Error : variable %s undefined ! " % self.tok)
     return self.tok
 
@@ -33,12 +40,21 @@ def execute(self):
     args = [c.execute() for c in self.children]
     if len(args) == 1:
         args.insert(0, 0)
-    return reduce(operations[self.op], args)
+    if not isinstance(args[0], type(args[1])):
+        print("*** Error : %s and %s aren't same type ! " % (self.children[0].tok, self.children[1].tok))
+    else:
+        return reduce(operations[self.op], args)
 
 
 @addToClass(AST.AssignNode)
 def execute(self):
-    vars[self.children[0].tok] = self.children[1].execute()
+    if isinstance(self.children[1].tok, types[self.type]):
+        if isinstance(self.children[1].tok, str):
+            vars[self.children[0].tok] = self.children[1].tok
+        else:
+            vars[self.children[0].tok] = self.children[1].execute()
+    else:
+        print("*** Error : type of %s isn't right ! " % self.children[0].tok)
 
 
 @addToClass(AST.PrintNode)

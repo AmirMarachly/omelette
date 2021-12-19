@@ -10,6 +10,7 @@ est une utilisation un peu "limite" de graphviz. �a marche, mais le layout n'e
 pas toujours optimal...
 '''
 
+from typing import Type
 import pydot
 
 class Node:
@@ -117,7 +118,13 @@ class OpNode(Node):
         return "%s (%s)" % (self.op, self.nbargs)
     
 class AssignNode(Node):
-    type = '='
+    def __init__(self, _type, tok, value):
+        Node.__init__(self, [tok, value])
+        self.type = _type
+        self.value = value
+    
+    def __repr__(self):
+        return "%s" % (self.type)
     
 class PrintNode(Node):
     type = 'print'

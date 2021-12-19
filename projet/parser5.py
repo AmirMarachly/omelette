@@ -2,8 +2,6 @@ import ply.yacc as yacc
 import AST
 from lex5 import tokens
 
-vars = {}
-
 precedence = (
     ('left', 'OP'),
     ('left', 'ID'),
@@ -43,13 +41,23 @@ def p_subordinate_assign(p):
         | print'''
     p[0] = p[1]
 
+def p_type(p):
+    '''type : NOMBRE
+        | TEXT
+        | BOOLEEN'''
+    p[0] = p[1]
+
 def p_assign(p):
-    'assign : ID VAUT expression'
-    p[0] = AST.AssignNode([AST.TokenNode(p[1]), p[3]])
+    '''assign : LE type ID VAUT expression'''
+    p[0] = AST.AssignNode(p[2], AST.TokenNode(p[3]), p[5])
 
 def p_expression_num(p):
     '''expression : NUMBER'''
     p[0] = AST.TokenNode(p[1])
+
+def p_expression_str(p):
+    '''expression : STRING'''
+    p[0] = AST.TokenNode(p[1][1:-1])
 
 def p_expression_id(p):
     'expression : ID'
@@ -58,8 +66,6 @@ def p_expression_id(p):
 def p_sentence_while(p):
     'sentence : TANT QUE expression ALORS sentence'
     p[0] = [AST.WhileNode([p[3], AST.ProgramNode(p[5])])]
-
-
 
 def p_operator(p):
     '''operator : ADDITIONNE DE %prec OP
@@ -79,12 +85,12 @@ def p_error(p):
 def parse(prog):
     return yacc.parse(prog)    
 
-yacc.yacc(outputdir="generated")
+yacc.yacc(outputdir="generated", debug=False)
 
 if __name__ == "__main__":
     import sys
     prog = open(sys.argv[1] ).read()
-    result = yacc.parse(prog)
+    result = yacc.parse(prog, debug=True)
 
     print(result)
     import os

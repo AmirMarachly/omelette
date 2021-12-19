@@ -1,0 +1,2 @@
+le nombre b vaut 2, afficher b. le text a vaut "salut", afficher a. afficher a additionne de 2.
+le text a vaut 32, afficher a.

@@ -19,12 +19,17 @@ reserved_words = (
     'petit',
     'que',
     'egal',
-    'tant'
+    'tant',
+    'le',
+    'booleen',
+    'nombre',
+    'text'
 )
 
 tokens = (
     'NUMBER',
     'ID',
+    'STRING'
     ) + tuple(map(lambda s:s.upper(), reserved_words))
 
 literals = '.,'
@@ -45,7 +50,7 @@ def t_newline(t):
     t.lexer.lineno += len(t.value)
 
 t_ignore = ' \t'
-
+t_STRING = r'\"([^\\\n]|(\\.))*?\"'
 
 def t_error(t):
     print("Illegal character'%s'"%t.value[0])
