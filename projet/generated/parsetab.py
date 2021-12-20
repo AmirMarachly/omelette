@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftOPleftIDleftVAUTADDITIONNE AFFICHER ALORS AVEC DE DEFINIR DIVISE EGAL GRAND ID MULTIPLIE NUMBER PAR PETIT PLUS PUIS QUE RIEN SI SINON SOUSTRAIT TANT VAUTprogram : sentenceprogram : sentence programsentence : subordinate "."sentence : subordinate PUIS sentence\n        | subordinate "," sentenceprint : AFFICHER expressionsubordinate : assign\n        | printargs : IDargs : ID argssentence : DEFINIR ID AVEC args ":" sentenceassign : ID VAUT expressionexpression : NUMBERexpression : IDsentence : TANT QUE expression ALORS sentenceoperator : ADDITIONNE DE %prec OP\n        | SOUSTRAIT DE %prec OP\n        | MULTIPLIE PAR %prec OP\n        | DIVISE PAR %prec OPexpression : expression operator expression %prec OP'
+_lr_signature = 'leftOPleftIDleftVAUTADDITIONNE AFFICHER ALORS APPELER AVEC DE DEFINIR DIVISE EGAL GRAND ID MULTIPLIE NUMBER PAR PETIT PLUS PUIS QUE RIEN SI SINON SOUSTRAIT TANT VAUTprogram : sentenceprogram : sentence programsentence : subordinate "."sentence : subordinate PUIS sentence\n        | subordinate "," sentenceprint : AFFICHER expressionsubordinate : assign\n        | printargs : IDargs : ID argssentence : DEFINIR ID AVEC args ":" sentencecallargs : expressioncallargs : expression callargssubordinate : APPELER ID AVEC callargsassign : ID VAUT expressionexpression : NUMBERexpression : IDsentence : TANT QUE expression ALORS sentenceoperator : ADDITIONNE DE %prec OP\n        | SOUSTRAIT DE %prec OP\n        | MULTIPLIE PAR %prec OP\n        | DIVISE PAR %prec OPexpression : expression operator expression %prec OP'
     
-_lr_action_items = {'DEFINIR':([0,2,11,12,13,20,21,32,39,40,41,],[4,4,-3,4,4,-4,-5,4,4,-15,-11,]),'TANT':([0,2,11,12,13,20,21,32,39,40,41,],[6,6,-3,6,6,-4,-5,6,6,-15,-11,]),'ID':([0,2,4,9,11,12,13,15,16,20,21,22,25,30,32,34,35,36,37,39,40,41,],[5,5,14,19,-3,5,5,19,19,-4,-5,30,19,30,5,-16,-17,-18,-19,5,-15,-11,]),'AFFICHER':([0,2,11,12,13,20,21,32,39,40,41,],[9,9,-3,9,9,-4,-5,9,9,-15,-11,]),'$end':([1,2,10,11,20,21,40,41,],[0,-1,-2,-3,-4,-5,-15,-11,]),'.':([3,7,8,17,18,19,23,33,],[11,-7,-8,-6,-13,-14,-12,-20,]),'PUIS':([3,7,8,17,18,19,23,33,],[12,-7,-8,-6,-13,-14,-12,-20,]),',':([3,7,8,17,18,19,23,33,],[13,-7,-8,-6,-13,-14,-12,-20,]),'VAUT':([5,],[15,]),'QUE':([6,],[16,]),'NUMBER':([9,15,16,25,34,35,36,37,],[18,18,18,18,-16,-17,-18,-19,]),'AVEC':([14,],[22,]),'ADDITIONNE':([17,18,19,23,24,33,],[26,-13,-14,26,26,-20,]),'SOUSTRAIT':([17,18,19,23,24,33,],[27,-13,-14,27,27,-20,]),'MULTIPLIE':([17,18,19,23,24,33,],[28,-13,-14,28,28,-20,]),'DIVISE':([17,18,19,23,24,33,],[29,-13,-14,29,29,-20,]),'ALORS':([18,19,24,33,],[-13,-14,32,-20,]),'DE':([26,27,],[34,35,]),'PAR':([28,29,],[36,37,]),':':([30,31,38,],[-9,39,-10,]),}
+_lr_action_items = {'DEFINIR':([0,2,12,13,14,22,23,35,44,45,47,],[4,4,-3,4,4,-4,-5,4,4,-18,-11,]),'TANT':([0,2,12,13,14,22,23,35,44,45,47,],[6,6,-3,6,6,-4,-5,6,6,-18,-11,]),'APPELER':([0,2,12,13,14,22,23,35,44,45,47,],[9,9,-3,9,9,-4,-5,9,9,-18,-11,]),'ID':([0,2,4,9,10,12,13,14,16,17,20,21,22,23,24,27,28,33,35,37,38,39,40,41,42,44,45,47,],[5,5,15,18,21,-3,5,5,21,21,-16,-17,-4,-5,33,21,21,33,5,21,-23,-19,-20,-21,-22,5,-18,-11,]),'AFFICHER':([0,2,12,13,14,22,23,35,44,45,47,],[10,10,-3,10,10,-4,-5,10,10,-18,-11,]),'$end':([1,2,11,12,22,23,45,47,],[0,-1,-2,-3,-4,-5,-18,-11,]),'.':([3,7,8,19,20,21,25,36,37,38,46,],[12,-7,-8,-6,-16,-17,-15,-14,-12,-23,-13,]),'PUIS':([3,7,8,19,20,21,25,36,37,38,46,],[13,-7,-8,-6,-16,-17,-15,-14,-12,-23,-13,]),',':([3,7,8,19,20,21,25,36,37,38,46,],[14,-7,-8,-6,-16,-17,-15,-14,-12,-23,-13,]),'VAUT':([5,],[16,]),'QUE':([6,],[17,]),'NUMBER':([10,16,17,20,21,27,28,37,38,39,40,41,42,],[20,20,20,-16,-17,20,20,20,-23,-19,-20,-21,-22,]),'AVEC':([15,18,],[24,27,]),'ADDITIONNE':([19,20,21,25,26,37,38,],[29,-16,-17,29,29,29,-23,]),'SOUSTRAIT':([19,20,21,25,26,37,38,],[30,-16,-17,30,30,30,-23,]),'MULTIPLIE':([19,20,21,25,26,37,38,],[31,-16,-17,31,31,31,-23,]),'DIVISE':([19,20,21,25,26,37,38,],[32,-16,-17,32,32,32,-23,]),'ALORS':([20,21,26,38,],[-16,-17,35,-23,]),'DE':([29,30,],[39,40,]),'PAR':([31,32,],[41,42,]),':':([33,34,43,],[-9,44,-10,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'program':([0,2,],[1,10,]),'sentence':([0,2,12,13,32,39,],[2,2,20,21,40,41,]),'subordinate':([0,2,12,13,32,39,],[3,3,3,3,3,3,]),'assign':([0,2,12,13,32,39,],[7,7,7,7,7,7,]),'print':([0,2,12,13,32,39,],[8,8,8,8,8,8,]),'expression':([9,15,16,25,],[17,23,24,33,]),'operator':([17,23,24,33,],[25,25,25,25,]),'args':([22,30,],[31,38,]),}
+_lr_goto_items = {'program':([0,2,],[1,11,]),'sentence':([0,2,13,14,35,44,],[2,2,22,23,45,47,]),'subordinate':([0,2,13,14,35,44,],[3,3,3,3,3,3,]),'assign':([0,2,13,14,35,44,],[7,7,7,7,7,7,]),'print':([0,2,13,14,35,44,],[8,8,8,8,8,8,]),'expression':([10,16,17,27,28,37,],[19,25,26,37,38,37,]),'operator':([19,25,26,37,38,],[28,28,28,28,28,]),'args':([24,33,],[34,43,]),'callargs':([27,37,],[36,46,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -35,16 +35,19 @@ _lr_productions = [
   ('print -> AFFICHER expression','print',2,'p_print','parser5.py',38),
   ('subordinate -> assign','subordinate',1,'p_subordinate_assign','parser5.py',42),
   ('subordinate -> print','subordinate',1,'p_subordinate_assign','parser5.py',43),
-  ('args -> ID','args',1,'p_args','parser5.py',48),
-  ('args -> ID args','args',2,'p_args_rec','parser5.py',52),
-  ('sentence -> DEFINIR ID AVEC args : sentence','sentence',6,'p_definefunction','parser5.py',56),
-  ('assign -> ID VAUT expression','assign',3,'p_assign','parser5.py',62),
-  ('expression -> NUMBER','expression',1,'p_expression_num','parser5.py',66),
-  ('expression -> ID','expression',1,'p_expression_id','parser5.py',70),
-  ('sentence -> TANT QUE expression ALORS sentence','sentence',5,'p_sentence_while','parser5.py',74),
-  ('operator -> ADDITIONNE DE','operator',2,'p_operator','parser5.py',78),
-  ('operator -> SOUSTRAIT DE','operator',2,'p_operator','parser5.py',79),
-  ('operator -> MULTIPLIE PAR','operator',2,'p_operator','parser5.py',80),
-  ('operator -> DIVISE PAR','operator',2,'p_operator','parser5.py',81),
-  ('expression -> expression operator expression','expression',3,'p_expression_op','parser5.py',85),
+  ('args -> ID','args',1,'p_args','parser5.py',47),
+  ('args -> ID args','args',2,'p_args_rec','parser5.py',51),
+  ('sentence -> DEFINIR ID AVEC args : sentence','sentence',6,'p_definefunction','parser5.py',55),
+  ('callargs -> expression','callargs',1,'p_callargs_expression','parser5.py',59),
+  ('callargs -> expression callargs','callargs',2,'p_callargs_rec','parser5.py',63),
+  ('subordinate -> APPELER ID AVEC callargs','subordinate',4,'p_callfunction','parser5.py',67),
+  ('assign -> ID VAUT expression','assign',3,'p_assign','parser5.py',71),
+  ('expression -> NUMBER','expression',1,'p_expression_num','parser5.py',75),
+  ('expression -> ID','expression',1,'p_expression_id','parser5.py',79),
+  ('sentence -> TANT QUE expression ALORS sentence','sentence',5,'p_sentence_while','parser5.py',83),
+  ('operator -> ADDITIONNE DE','operator',2,'p_operator','parser5.py',87),
+  ('operator -> SOUSTRAIT DE','operator',2,'p_operator','parser5.py',88),
+  ('operator -> MULTIPLIE PAR','operator',2,'p_operator','parser5.py',89),
+  ('operator -> DIVISE PAR','operator',2,'p_operator','parser5.py',90),
+  ('expression -> expression operator expression','expression',3,'p_expression_op','parser5.py',94),
 ]

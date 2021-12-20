@@ -22,7 +22,8 @@ reserved_words = (
     'tant',
 
     'definir',
-    'avec'
+    'avec',
+    'appeler'
 )
 
 tokens = (
