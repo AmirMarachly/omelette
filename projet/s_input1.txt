@@ -1,0 +1,17 @@
+n1 vaut 6. n2 vaut 7. 
+si n2 plus grand que n1 alors afficher n2. 
+sinon rien.
+
+n1 vaut 10.
+n2 vaut 3.
+
+si n2 plus grand que n1 alors afficher n2. 
+sinon si n1 plus grand que n2 alors afficher n2. 
+sinon rien.
+
+tant que n2 plus petit que n1,
+    alors
+        afficher n2
+        puis n2 vaut n2 additionne de 1.
+
+afficher n1.

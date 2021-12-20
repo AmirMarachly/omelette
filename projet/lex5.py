@@ -18,6 +18,8 @@ reserved_words = (
     'grand',
     'petit',
     'que',
+    'moins',
+    'ou',
     'egal',
     'tant',
     'le',

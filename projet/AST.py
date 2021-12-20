@@ -132,6 +132,9 @@ class PrintNode(Node):
 class WhileNode(Node):
     type = 'while'
 
+class CompareNode(Node):
+    type = 'compare'    
+
 class EntryNode(Node):
     type = 'ENTRY'
     def __init__(self):
