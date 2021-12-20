@@ -25,10 +25,6 @@ operators = {
     "plus petit que ou egal" : lambda x, y: x<=y
 }
 
-comparators = {
-
-}
-
 
 def p_program_sentence(p):
     'program : sentence'
@@ -113,6 +109,7 @@ def p_sentence_nothing(p):
     '''sentence : RIEN "." '''
     p[0] = AST.ProgramNode()
 
+
 def p_expression_op(p):
     '''expression : expression operator expression %prec OP'''
     p[0] = AST.OpNode(p[2], [p[1], p[3]])
@@ -122,8 +119,10 @@ def p_error(p):
     print("Syntax error in line %d" % p.lineno)
     yacc.errok()
 
+
 def parse(prog):
     return yacc.parse(prog)
+
 
 yacc.yacc(outputdir="generated")
 

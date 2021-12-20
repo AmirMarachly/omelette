@@ -15,8 +15,6 @@ operations = {
     "plus petit que ou egal" : lambda x, y: x<=y
 }
 
-vars = {}
-
 
 @addToClass(AST.ProgramNode)
 def execute(self):
