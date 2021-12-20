@@ -104,7 +104,8 @@ def p_operator(p):
 
 def p_operator_comparator(p):
     '''operator : PLUS GRAND QUE
-    | PLUS PETIT QUE'''
+    | PLUS PETIT QUE
+    | EST EGAL'''
     p[0] = p[1] + ' ' + p[2]
 
 
@@ -128,7 +129,7 @@ def p_expression_op(p):
 
 def p_error(p):
     print("Syntax error in line %d" % p.lineno)
-    yacc.errok()
+    # yacc.errok()
 
 
 def parse(prog):
@@ -140,7 +141,7 @@ yacc.yacc(outputdir="generated", debug=False)
 if __name__ == "__main__":
     import sys
     prog = open(sys.argv[1] ).read()
-    result = yacc.parse(prog, debug=True)
+    result = yacc.parse(prog)
 
     print(result)
     import os

@@ -1,5 +1,5 @@
 import AST
-from AST import addToClass
+from AST import OpNode, addToClass
 from functools import reduce
 
 operations = {
@@ -12,7 +12,8 @@ operations = {
     "moins grand" : lambda x,y: x<y,
     "moins petit" : lambda x,y: x>y,
     "plus grand que ou egal" : lambda x, y: x>=y,
-    "plus petit que ou egal" : lambda x, y: x<=y
+    "plus petit que ou egal" : lambda x, y: x<=y,
+    "est egal" : lambda x, y: x == y
 }
 
 types = {
@@ -41,6 +42,8 @@ def execute(self):
     has_quote = False
     if isinstance(self.tok, str):
         has_quote = self.tok[0] == "\"" and self.tok[-1] == "\""
+        if self.tok in bools.keys():
+            return bools[self.tok]
         if not has_quote:
             try:
                 return vars[self.tok]
@@ -68,14 +71,18 @@ def execute(self):
 @addToClass(AST.AssignNode)
 def execute(self):
     # print("assign")
-    if isinstance(self.children[1].tok, types[self.type]):
-        if isinstance(self.children[1].tok, str):
-            if self.children[1].tok in bools.keys():
-                vars[self.children[0].tok] = bools[self.children[1].tok]
+    if isinstance(self.children[1], OpNode):
+        value = self.children[1].execute()
+    else:
+        value = self.children[1].tok
+    if isinstance(value, types[self.type]):
+        if isinstance(value, str):
+            if value in bools.keys():
+                vars[self.children[0].tok] = bools[value]
             else:
-                vars[self.children[0].tok] = self.children[1].execute()
+                vars[self.children[0].tok] = value
         else:
-            vars[self.children[0].tok] = self.children[1].execute()
+            vars[self.children[0].tok] = value
     else:
         print("*** Error : type of %s isn't right ! " % self.children[0].tok)
 
@@ -101,6 +108,7 @@ def execute(self):
 
 @addToClass(AST.CompareNode)
 def execute(self):
+    # print("compare")
     if self.children[0].execute():
         self.children[1].execute()
     else:

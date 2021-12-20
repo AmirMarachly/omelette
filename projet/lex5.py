@@ -20,6 +20,7 @@ reserved_words = (
     'que',
     'moins',
     'ou',
+    'est',
     'egal',
     'tant',
     'le',

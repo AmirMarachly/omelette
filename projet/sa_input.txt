@@ -1,0 +1,4 @@
+le booleen t vaut vrai.
+tant que t est egal vrai 
+    alors afficher t puis le booleen t vaut faux.
+afficher t.
