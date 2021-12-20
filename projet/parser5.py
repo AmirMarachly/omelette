@@ -103,18 +103,18 @@ def p_operator(p):
 
 
 def p_operator_comparator(p):
-    '''operator : PLUS GRAND QUE
-    | PLUS PETIT QUE
-    | EST EGAL'''
-    p[0] = p[1] + ' ' + p[2]
+    '''operator : EST PLUS GRAND QUE
+    | EST PLUS PETIT QUE
+    | EST EGAL A'''
+    p[0] = p[1] + ' ' + p[2] + ' ' + p[3]
 
 
 def p_operator_comparator_equal(p):
-    '''operator : PLUS GRAND QUE OU EGAL
-    | PLUS PETIT QUE OU EGAL
-    | MOINS GRAND QUE OU EGAL
-    | MOINS PETIT QUE OU EGAL'''
-    p[0] = p[1] + ' ' + p[2] + ' ' + p[3] + ' ' + p[4] + ' ' + p[5]
+    '''operator : EST PLUS GRAND QUE OU EGAL
+    | EST PLUS PETIT QUE OU EGAL
+    | EST MOINS GRAND QUE OU EGAL
+    | EST MOINS PETIT QUE OU EGAL'''
+    p[0] = p[1] + ' ' + p[2] + ' ' + p[3] + ' ' + p[4] + ' ' + p[5] + ' ' + p[6] 
 
 
 def p_sentence_nothing(p):

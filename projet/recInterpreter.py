@@ -7,13 +7,13 @@ operations = {
     "soustrait" : lambda x,y: x-y,
     "multiplie" : lambda x,y: x*y,
     "divise" : lambda x,y: x/y,
-    "plus grand" : lambda x,y: x>y,
-    "plus petit" : lambda x,y: x<y,
-    "moins grand" : lambda x,y: x<y,
-    "moins petit" : lambda x,y: x>y,
-    "plus grand que ou egal" : lambda x, y: x>=y,
-    "plus petit que ou egal" : lambda x, y: x<=y,
-    "est egal" : lambda x, y: x == y
+    "est plus grand" : lambda x,y: x>y,
+    "est plus petit" : lambda x,y: x<y,
+    "est moins grand" : lambda x,y: x<y,
+    "est moins petit" : lambda x,y: x>y,
+    "est plus grand que ou egal" : lambda x, y: x>=y,
+    "est plus petit que ou egal" : lambda x, y: x<=y,
+    "est egal a" : lambda x, y: x == y
 }
 
 types = {

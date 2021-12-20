@@ -28,7 +28,8 @@ reserved_words = (
     'nombre',
     'text',
     'vrai',
-    'faux'
+    'faux',
+    'a'
 )
 
 tokens = (
