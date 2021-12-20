@@ -57,7 +57,12 @@ def p_expression_num(p):
 
 def p_expression_str(p):
     '''expression : STRING'''
-    p[0] = AST.TokenNode(p[1][1:-1])
+    p[0] = AST.TokenNode(p[1])
+
+def p_expression_bool(p):
+    '''expression : VRAI
+        | FAUX'''
+    p[0] = AST.TokenNode(p[1])
 
 def p_expression_id(p):
     'expression : ID'

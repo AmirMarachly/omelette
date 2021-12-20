@@ -1,2 +1,4 @@
 le nombre a vaut 32. afficher a puis afficher 3.
-le nombre b vaut 5. afficher b additionne de a.
+le text a vaut "ça va". afficher a.
+le booleen c vaut vrai, afficher c.
+afficher "salut comment ça va".

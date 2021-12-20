@@ -23,7 +23,9 @@ reserved_words = (
     'le',
     'booleen',
     'nombre',
-    'text'
+    'text',
+    'vrai',
+    'faux'
 )
 
 tokens = (

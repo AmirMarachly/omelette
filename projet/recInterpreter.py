@@ -12,7 +12,12 @@ operations = {
 types = {
     "text" : str,
     "nombre" : float,
-    "booleen" : bool 
+    "booleen" : str 
+}
+
+bools = {
+    "vrai" : True,
+    "faux" : False
 }
 
 vars = {}
@@ -20,23 +25,32 @@ vars = {}
 
 @addToClass(AST.ProgramNode)
 def execute(self):
+    # print("program")
     for c in self.children:
         c.execute()
 
 
 @addToClass(AST.TokenNode)
 def execute(self):
+    # print("token")
+    has_quote = False
     if isinstance(self.tok, str):
-        try:
-            return vars[self.tok]
-        except KeyError:
-            #TODO
-            print("*** Error : variable %s undefined ! " % self.tok)
-    return self.tok
+        has_quote = self.tok[0] == "\"" and self.tok[-1] == "\""
+        if not has_quote:
+            try:
+                return vars[self.tok]
+            except KeyError:
+                #TODO
+                print("*** Error : variable %s undefined ! " % self.tok)
+    if has_quote:
+        return self.tok[1:-1]
+    else:
+        return self.tok
 
 
 @addToClass(AST.OpNode)
 def execute(self):
+    # print("opnode")
     args = [c.execute() for c in self.children]
     if len(args) == 1:
         args.insert(0, 0)
@@ -48,9 +62,13 @@ def execute(self):
 
 @addToClass(AST.AssignNode)
 def execute(self):
+    # print("assign")
     if isinstance(self.children[1].tok, types[self.type]):
         if isinstance(self.children[1].tok, str):
-            vars[self.children[0].tok] = self.children[1].tok
+            if self.children[1].tok in bools.keys():
+                vars[self.children[0].tok] = bools[self.children[1].tok]
+            else:
+                vars[self.children[0].tok] = self.children[1].execute()
         else:
             vars[self.children[0].tok] = self.children[1].execute()
     else:
@@ -59,11 +77,19 @@ def execute(self):
 
 @addToClass(AST.PrintNode)
 def execute(self):
-    print(self.children[0].execute())
+    # print("print")
+    if isinstance(self.children[0].execute(), bool):
+        if self.children[0].execute():
+            print("C'est vrai!")
+        else:
+            print("C'est faux!")
+    else:
+        print(self.children[0].execute())
 
 
 @addToClass(AST.WhileNode)
 def execute(self):
+    # print("while")
     while self.children[0].execute():
         self.children[1].execute()
 
