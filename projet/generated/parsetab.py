@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftOPleftIDleftVAUTleftSIA ADDITIONNE AFFICHER ALORS BOOLEEN DE DIVISE EGAL EST FAUX GRAND ID LE MOINS MULTIPLIE NOMBRE NUMBER OU PAR PETIT PLUS PUIS QUE RIEN SI SINON SOUSTRAIT STRING TANT TEXT VAUT VRAIprogram : sentenceprogram : sentence programsentence : subordinate "."sentence : subordinate PUIS sentence\n        | subordinate "," sentenceprint : AFFICHER expressionsubordinate : assign\n        | printtype : NOMBRE\n        | TEXT\n        | BOOLEENassign : LE type ID VAUT expressionexpression : NUMBERexpression : STRINGexpression : VRAI\n        | FAUXexpression : IDsentence : TANT QUE expression ALORS sentencesentence : SI expression ALORS sentence SINON sentenceoperator : ADDITIONNE DE %prec OP\n        | SOUSTRAIT DE %prec OP\n        | MULTIPLIE PAR %prec OP\n        | DIVISE PAR %prec OPoperator : EST PLUS GRAND QUE\n    | EST PLUS PETIT QUE\n    | EST EGAL Aoperator : EST PLUS GRAND QUE OU EGAL\n    | EST PLUS PETIT QUE OU EGAL\n    | EST MOINS GRAND QUE OU EGAL\n    | EST MOINS PETIT QUE OU EGALsentence : RIEN "." expression : expression operator expression %prec OP'
+_lr_signature = 'leftOPleftIDleftVAUTleftSIA ADDITIONNE AFFICHER ALORS APPELER AVEC BOOLEEN DE DEFINIR DIVISE EGAL EST FAUX GRAND ID LE MOINS MULTIPLIE NOMBRE NUMBER OU PAR PETIT PLUS PUIS QUE RIEN SI SINON SOUSTRAIT STRING TANT TEXT VAUT VRAIprogram : sentenceprogram : sentence programsentence : subordinate "."sentence : subordinate PUIS sentence\n        | subordinate "," sentenceprint : AFFICHER expressionsubordinate : assign\n        | printargs : IDargs : ID argssentence : DEFINIR ID AVEC args ":" sentencecallargs : expressioncallargs : expression callargssubordinate : APPELER ID AVEC callargstype : NOMBRE\n        | TEXT\n        | BOOLEENassign : LE type ID VAUT expressionexpression : NUMBERexpression : STRINGexpression : VRAI\n        | FAUXexpression : IDsentence : TANT QUE expression ALORS sentencesentence : SI expression ALORS sentence SINON sentenceoperator : ADDITIONNE DE %prec OP\n        | SOUSTRAIT DE %prec OP\n        | MULTIPLIE PAR %prec OP\n        | DIVISE PAR %prec OPoperator : EST PLUS GRAND QUE\n    | EST PLUS PETIT QUE\n    | EST EGAL Aoperator : EST PLUS GRAND QUE OU EGAL\n    | EST PLUS PETIT QUE OU EGAL\n    | EST MOINS GRAND QUE OU EGAL\n    | EST MOINS PETIT QUE OU EGALsentence : RIEN "." expression : expression operator expression %prec OP'
     
-_lr_action_items = {'TANT':([0,2,12,13,14,22,28,29,31,39,50,51,58,],[4,4,-3,4,4,-31,-4,-5,4,4,-18,4,-19,]),'SI':([0,2,12,13,14,22,28,29,31,39,50,51,58,],[5,5,-3,5,5,-31,-4,-5,5,5,-18,5,-19,]),'RIEN':([0,2,12,13,14,22,28,29,31,39,50,51,58,],[6,6,-3,6,6,-31,-4,-5,6,6,-18,6,-19,]),'LE':([0,2,12,13,14,22,28,29,31,39,50,51,58,],[9,9,-3,9,9,-31,-4,-5,9,9,-18,9,-19,]),'AFFICHER':([0,2,12,13,14,22,28,29,31,39,50,51,58,],[10,10,-3,10,10,-31,-4,-5,10,10,-18,10,-19,]),'$end':([1,2,11,12,22,28,29,50,58,],[0,-1,-2,-3,-31,-4,-5,-18,-19,]),'.':([3,6,7,8,17,18,19,20,21,27,41,57,],[12,22,-7,-8,-13,-14,-15,-16,-17,-6,-32,-12,]),'PUIS':([3,7,8,17,18,19,20,21,27,41,57,],[13,-7,-8,-13,-14,-15,-16,-17,-6,-32,-12,]),',':([3,7,8,17,18,19,20,21,27,41,57,],[14,-7,-8,-13,-14,-15,-16,-17,-6,-32,-12,]),'QUE':([4,52,53,55,56,],[15,59,60,61,62,]),'NUMBER':([5,10,15,32,42,43,44,45,49,54,59,60,67,68,69,70,],[17,17,17,17,-20,-21,-22,-23,17,-26,-24,-25,-27,-28,-29,-30,]),'STRING':([5,10,15,32,42,43,44,45,49,54,59,60,67,68,69,70,],[18,18,18,18,-20,-21,-22,-23,18,-26,-24,-25,-27,-28,-29,-30,]),'VRAI':([5,10,15,32,42,43,44,45,49,54,59,60,67,68,69,70,],[19,19,19,19,-20,-21,-22,-23,19,-26,-24,-25,-27,-28,-29,-30,]),'FAUX':([5,10,15,32,42,43,44,45,49,54,59,60,67,68,69,70,],[20,20,20,20,-20,-21,-22,-23,20,-26,-24,-25,-27,-28,-29,-30,]),'ID':([5,10,15,23,24,25,26,32,42,43,44,45,49,54,59,60,67,68,69,70,],[21,21,21,38,-9,-10,-11,21,-20,-21,-22,-23,21,-26,-24,-25,-27,-28,-29,-30,]),'NOMBRE':([9,],[24,]),'TEXT':([9,],[25,]),'BOOLEEN':([9,],[26,]),'SINON':([12,22,28,29,40,50,58,],[-3,-31,-4,-5,51,-18,-19,]),'ALORS':([16,17,18,19,20,21,30,41,],[31,-13,-14,-15,-16,-17,39,-32,]),'ADDITIONNE':([16,17,18,19,20,21,27,30,41,57,],[33,-13,-14,-15,-16,-17,33,33,-32,33,]),'SOUSTRAIT':([16,17,18,19,20,21,27,30,41,57,],[34,-13,-14,-15,-16,-17,34,34,-32,34,]),'MULTIPLIE':([16,17,18,19,20,21,27,30,41,57,],[35,-13,-14,-15,-16,-17,35,35,-32,35,]),'DIVISE':([16,17,18,19,20,21,27,30,41,57,],[36,-13,-14,-15,-16,-17,36,36,-32,36,]),'EST':([16,17,18,19,20,21,27,30,41,57,],[37,-13,-14,-15,-16,-17,37,37,-32,37,]),'DE':([33,34,],[42,43,]),'PAR':([35,36,],[44,45,]),'PLUS':([37,],[46,]),'EGAL':([37,63,64,65,66,],[47,67,68,69,70,]),'MOINS':([37,],[48,]),'VAUT':([38,],[49,]),'GRAND':([46,48,],[52,55,]),'PETIT':([46,48,],[53,56,]),'A':([47,],[54,]),'OU':([59,60,61,62,],[63,64,65,66,]),}
+_lr_action_items = {'DEFINIR':([0,2,14,15,16,25,32,33,36,47,61,62,63,71,72,],[4,4,-3,4,4,-37,-4,-5,4,4,4,-24,4,-11,-25,]),'TANT':([0,2,14,15,16,25,32,33,36,47,61,62,63,71,72,],[5,5,-3,5,5,-37,-4,-5,5,5,5,-24,5,-11,-25,]),'SI':([0,2,14,15,16,25,32,33,36,47,61,62,63,71,72,],[6,6,-3,6,6,-37,-4,-5,6,6,6,-24,6,-11,-25,]),'RIEN':([0,2,14,15,16,25,32,33,36,47,61,62,63,71,72,],[7,7,-3,7,7,-37,-4,-5,7,7,7,-24,7,-11,-25,]),'APPELER':([0,2,14,15,16,25,32,33,36,47,61,62,63,71,72,],[10,10,-3,10,10,-37,-4,-5,10,10,10,-24,10,-11,-25,]),'LE':([0,2,14,15,16,25,32,33,36,47,61,62,63,71,72,],[11,11,-3,11,11,-37,-4,-5,11,11,11,-24,11,-11,-25,]),'AFFICHER':([0,2,14,15,16,25,32,33,36,47,61,62,63,71,72,],[12,12,-3,12,12,-37,-4,-5,12,12,12,-24,12,-11,-25,]),'$end':([1,2,13,14,25,32,33,62,71,72,],[0,-1,-2,-3,-37,-4,-5,-24,-11,-25,]),'.':([3,7,8,9,20,21,22,23,24,31,49,57,58,69,70,],[14,25,-7,-8,-19,-20,-21,-22,-23,-6,-38,-14,-12,-13,-18,]),'PUIS':([3,8,9,20,21,22,23,24,31,49,57,58,69,70,],[15,-7,-8,-19,-20,-21,-22,-23,-6,-38,-14,-12,-13,-18,]),',':([3,8,9,20,21,22,23,24,31,49,57,58,69,70,],[16,-7,-8,-19,-20,-21,-22,-23,-6,-38,-14,-12,-13,-18,]),'ID':([4,6,10,12,18,20,21,22,23,24,27,28,29,30,34,37,43,45,49,50,51,52,53,58,59,66,73,74,81,82,83,84,],[17,24,26,24,24,-19,-20,-21,-22,-23,44,-15,-16,-17,45,24,24,45,-38,-26,-27,-28,-29,24,24,-32,-30,-31,-33,-34,-35,-36,]),'QUE':([5,64,65,67,68,],[18,73,74,75,76,]),'NUMBER':([6,12,18,20,21,22,23,24,37,43,49,50,51,52,53,58,59,66,73,74,81,82,83,84,],[20,20,20,-19,-20,-21,-22,-23,20,20,-38,-26,-27,-28,-29,20,20,-32,-30,-31,-33,-34,-35,-36,]),'STRING':([6,12,18,20,21,22,23,24,37,43,49,50,51,52,53,58,59,66,73,74,81,82,83,84,],[21,21,21,-19,-20,-21,-22,-23,21,21,-38,-26,-27,-28,-29,21,21,-32,-30,-31,-33,-34,-35,-36,]),'VRAI':([6,12,18,20,21,22,23,24,37,43,49,50,51,52,53,58,59,66,73,74,81,82,83,84,],[22,22,22,-19,-20,-21,-22,-23,22,22,-38,-26,-27,-28,-29,22,22,-32,-30,-31,-33,-34,-35,-36,]),'FAUX':([6,12,18,20,21,22,23,24,37,43,49,50,51,52,53,58,59,66,73,74,81,82,83,84,],[23,23,23,-19,-20,-21,-22,-23,23,23,-38,-26,-27,-28,-29,23,23,-32,-30,-31,-33,-34,-35,-36,]),'NOMBRE':([11,],[28,]),'TEXT':([11,],[29,]),'BOOLEEN':([11,],[30,]),'SINON':([14,25,32,33,48,62,71,72,],[-3,-37,-4,-5,63,-24,-11,-25,]),'AVEC':([17,26,],[34,43,]),'ALORS':([19,20,21,22,23,24,35,49,],[36,-19,-20,-21,-22,-23,47,-38,]),'ADDITIONNE':([19,20,21,22,23,24,31,35,49,58,70,],[38,-19,-20,-21,-22,-23,38,38,-38,38,38,]),'SOUSTRAIT':([19,20,21,22,23,24,31,35,49,58,70,],[39,-19,-20,-21,-22,-23,39,39,-38,39,39,]),'MULTIPLIE':([19,20,21,22,23,24,31,35,49,58,70,],[40,-19,-20,-21,-22,-23,40,40,-38,40,40,]),'DIVISE':([19,20,21,22,23,24,31,35,49,58,70,],[41,-19,-20,-21,-22,-23,41,41,-38,41,41,]),'EST':([19,20,21,22,23,24,31,35,49,58,70,],[42,-19,-20,-21,-22,-23,42,42,-38,42,42,]),'DE':([38,39,],[50,51,]),'PAR':([40,41,],[52,53,]),'PLUS':([42,],[54,]),'EGAL':([42,77,78,79,80,],[55,81,82,83,84,]),'MOINS':([42,],[56,]),'VAUT':([44,],[59,]),':':([45,46,60,],[-9,61,-10,]),'GRAND':([54,56,],[64,67,]),'PETIT':([54,56,],[65,68,]),'A':([55,],[66,]),'OU':([73,74,75,76,],[77,78,79,80,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'program':([0,2,],[1,11,]),'sentence':([0,2,13,14,31,39,51,],[2,2,28,29,40,50,58,]),'subordinate':([0,2,13,14,31,39,51,],[3,3,3,3,3,3,3,]),'assign':([0,2,13,14,31,39,51,],[7,7,7,7,7,7,7,]),'print':([0,2,13,14,31,39,51,],[8,8,8,8,8,8,8,]),'expression':([5,10,15,32,49,],[16,27,30,41,57,]),'type':([9,],[23,]),'operator':([16,27,30,41,57,],[32,32,32,32,32,]),}
+_lr_goto_items = {'program':([0,2,],[1,13,]),'sentence':([0,2,15,16,36,47,61,63,],[2,2,32,33,48,62,71,72,]),'subordinate':([0,2,15,16,36,47,61,63,],[3,3,3,3,3,3,3,3,]),'assign':([0,2,15,16,36,47,61,63,],[8,8,8,8,8,8,8,8,]),'print':([0,2,15,16,36,47,61,63,],[9,9,9,9,9,9,9,9,]),'expression':([6,12,18,37,43,58,59,],[19,31,35,49,58,58,70,]),'type':([11,],[27,]),'operator':([19,31,35,49,58,70,],[37,37,37,37,37,37,]),'args':([34,45,],[46,60,]),'callargs':([43,58,],[57,69,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,36 +27,42 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> program","S'",1,None,None,None),
-  ('program -> sentence','program',1,'p_program_sentence','parser5.py',28),
-  ('program -> sentence program','program',2,'p_program_recursive','parser5.py',33),
-  ('sentence -> subordinate .','sentence',2,'p_sentence_subordinate','parser5.py',38),
-  ('sentence -> subordinate PUIS sentence','sentence',3,'p_sentence_recursive','parser5.py',43),
-  ('sentence -> subordinate , sentence','sentence',3,'p_sentence_recursive','parser5.py',44),
-  ('print -> AFFICHER expression','print',2,'p_print','parser5.py',49),
-  ('subordinate -> assign','subordinate',1,'p_subordinate_assign','parser5.py',54),
-  ('subordinate -> print','subordinate',1,'p_subordinate_assign','parser5.py',55),
-  ('type -> NOMBRE','type',1,'p_type','parser5.py',59),
-  ('type -> TEXT','type',1,'p_type','parser5.py',60),
-  ('type -> BOOLEEN','type',1,'p_type','parser5.py',61),
-  ('assign -> LE type ID VAUT expression','assign',5,'p_assign','parser5.py',65),
-  ('expression -> NUMBER','expression',1,'p_expression_num','parser5.py',70),
-  ('expression -> STRING','expression',1,'p_expression_str','parser5.py',74),
-  ('expression -> VRAI','expression',1,'p_expression_bool','parser5.py',78),
-  ('expression -> FAUX','expression',1,'p_expression_bool','parser5.py',79),
-  ('expression -> ID','expression',1,'p_expression_id','parser5.py',83),
-  ('sentence -> TANT QUE expression ALORS sentence','sentence',5,'p_sentence_while','parser5.py',88),
-  ('sentence -> SI expression ALORS sentence SINON sentence','sentence',6,'p_sentence_compare','parser5.py',93),
-  ('operator -> ADDITIONNE DE','operator',2,'p_operator','parser5.py',98),
-  ('operator -> SOUSTRAIT DE','operator',2,'p_operator','parser5.py',99),
-  ('operator -> MULTIPLIE PAR','operator',2,'p_operator','parser5.py',100),
-  ('operator -> DIVISE PAR','operator',2,'p_operator','parser5.py',101),
-  ('operator -> EST PLUS GRAND QUE','operator',4,'p_operator_comparator','parser5.py',106),
-  ('operator -> EST PLUS PETIT QUE','operator',4,'p_operator_comparator','parser5.py',107),
-  ('operator -> EST EGAL A','operator',3,'p_operator_comparator','parser5.py',108),
-  ('operator -> EST PLUS GRAND QUE OU EGAL','operator',6,'p_operator_comparator_equal','parser5.py',113),
-  ('operator -> EST PLUS PETIT QUE OU EGAL','operator',6,'p_operator_comparator_equal','parser5.py',114),
-  ('operator -> EST MOINS GRAND QUE OU EGAL','operator',6,'p_operator_comparator_equal','parser5.py',115),
-  ('operator -> EST MOINS PETIT QUE OU EGAL','operator',6,'p_operator_comparator_equal','parser5.py',116),
-  ('sentence -> RIEN .','sentence',2,'p_sentence_nothing','parser5.py',121),
-  ('expression -> expression operator expression','expression',3,'p_expression_op','parser5.py',126),
+  ('program -> sentence','program',1,'p_program_sentence','parser5.py',30),
+  ('program -> sentence program','program',2,'p_program_recursive','parser5.py',35),
+  ('sentence -> subordinate .','sentence',2,'p_sentence_subordinate','parser5.py',40),
+  ('sentence -> subordinate PUIS sentence','sentence',3,'p_sentence_recursive','parser5.py',45),
+  ('sentence -> subordinate , sentence','sentence',3,'p_sentence_recursive','parser5.py',46),
+  ('print -> AFFICHER expression','print',2,'p_print','parser5.py',51),
+  ('subordinate -> assign','subordinate',1,'p_subordinate_assign','parser5.py',56),
+  ('subordinate -> print','subordinate',1,'p_subordinate_assign','parser5.py',57),
+  ('args -> ID','args',1,'p_args','parser5.py',61),
+  ('args -> ID args','args',2,'p_args_rec','parser5.py',65),
+  ('sentence -> DEFINIR ID AVEC args : sentence','sentence',6,'p_definefunction','parser5.py',69),
+  ('callargs -> expression','callargs',1,'p_callargs_expression','parser5.py',73),
+  ('callargs -> expression callargs','callargs',2,'p_callargs_rec','parser5.py',77),
+  ('subordinate -> APPELER ID AVEC callargs','subordinate',4,'p_callfunction','parser5.py',81),
+  ('type -> NOMBRE','type',1,'p_type','parser5.py',85),
+  ('type -> TEXT','type',1,'p_type','parser5.py',86),
+  ('type -> BOOLEEN','type',1,'p_type','parser5.py',87),
+  ('assign -> LE type ID VAUT expression','assign',5,'p_assign','parser5.py',91),
+  ('expression -> NUMBER','expression',1,'p_expression_num','parser5.py',96),
+  ('expression -> STRING','expression',1,'p_expression_str','parser5.py',100),
+  ('expression -> VRAI','expression',1,'p_expression_bool','parser5.py',104),
+  ('expression -> FAUX','expression',1,'p_expression_bool','parser5.py',105),
+  ('expression -> ID','expression',1,'p_expression_id','parser5.py',109),
+  ('sentence -> TANT QUE expression ALORS sentence','sentence',5,'p_sentence_while','parser5.py',114),
+  ('sentence -> SI expression ALORS sentence SINON sentence','sentence',6,'p_sentence_compare','parser5.py',119),
+  ('operator -> ADDITIONNE DE','operator',2,'p_operator','parser5.py',124),
+  ('operator -> SOUSTRAIT DE','operator',2,'p_operator','parser5.py',125),
+  ('operator -> MULTIPLIE PAR','operator',2,'p_operator','parser5.py',126),
+  ('operator -> DIVISE PAR','operator',2,'p_operator','parser5.py',127),
+  ('operator -> EST PLUS GRAND QUE','operator',4,'p_operator_comparator','parser5.py',132),
+  ('operator -> EST PLUS PETIT QUE','operator',4,'p_operator_comparator','parser5.py',133),
+  ('operator -> EST EGAL A','operator',3,'p_operator_comparator','parser5.py',134),
+  ('operator -> EST PLUS GRAND QUE OU EGAL','operator',6,'p_operator_comparator_equal','parser5.py',139),
+  ('operator -> EST PLUS PETIT QUE OU EGAL','operator',6,'p_operator_comparator_equal','parser5.py',140),
+  ('operator -> EST MOINS GRAND QUE OU EGAL','operator',6,'p_operator_comparator_equal','parser5.py',141),
+  ('operator -> EST MOINS PETIT QUE OU EGAL','operator',6,'p_operator_comparator_equal','parser5.py',142),
+  ('sentence -> RIEN .','sentence',2,'p_sentence_nothing','parser5.py',147),
+  ('expression -> expression operator expression','expression',3,'p_expression_op','parser5.py',152),
 ]

@@ -29,7 +29,10 @@ reserved_words = (
     'text',
     'vrai',
     'faux',
-    'a'
+    'a',
+    'definir',
+    'avec',
+    'appeler'
 )
 
 tokens = (
@@ -38,7 +41,7 @@ tokens = (
     'STRING'
     ) + tuple(map(lambda s:s.upper(), reserved_words))
 
-literals = '.,'
+literals = '.,:'
 
 def t_NUMBER(t):
     r'([0-9]*[.])?[0-9]+'

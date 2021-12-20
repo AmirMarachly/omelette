@@ -1,5 +1,6 @@
 import AST
 from AST import OpNode, addToClass
+from context import Context
 from functools import reduce
 
 operations = {
@@ -21,6 +22,14 @@ types = {
     "nombre" : float,
     "booleen" : str 
 }
+currentContext = Context()
+
+functions = {} # the key is the name of the functions, 
+                            # the values is:
+                                # (the ProgramNode,
+                                # the args names,
+                                # the scope where the function is declared)
+
 
 bools = {
     "vrai" : True,
@@ -35,7 +44,6 @@ def execute(self):
     for c in self.children:
         c.execute()
 
-
 @addToClass(AST.TokenNode)
 def execute(self):
     # print("token")
@@ -46,15 +54,37 @@ def execute(self):
             return bools[self.tok]
         if not has_quote:
             try:
-                return vars[self.tok]
+                r = currentContext[self.tok]
+                if r != None:
+                    return r
             except KeyError:
-                #TODO
                 print("*** Error : variable %s undefined ! " % self.tok)
     if has_quote:
         return self.tok[1:-1]
-    else:
-        return self.tok
+        
+    return self.tok
 
+@addToClass(AST.DefineNode)
+def execute(self):
+    functions[self.name] = (self.children[0], self.args, currentContext)
+
+@addToClass(AST.CallNode)
+def execute(self):
+    argsNames = functions[self.name][1]
+    argsValues = [i.execute() for i in self.args]
+    d = dict(zip(argsNames,argsValues))
+
+    #context.insert(0,d)
+    global currentContext
+    oldContext = currentContext
+    currentContext = functions[self.name][2].createChildren()
+    for k,v in d.items():
+        currentContext[k] = v
+
+    functions[self.name][0].execute()
+
+    currentContext = oldContext
+    #del context[0]
 
 @addToClass(AST.OpNode)
 def execute(self):
@@ -67,7 +97,6 @@ def execute(self):
     else:
         return reduce(operations[self.op], args)
 
-
 @addToClass(AST.AssignNode)
 def execute(self):
     # print("assign")
@@ -78,11 +107,11 @@ def execute(self):
     if isinstance(value, types[self.type]):
         if isinstance(value, str):
             if value in bools.keys():
-                vars[self.children[0].tok] = bools[value]
+                currentContext[self.children[0].tok] = bools[value]
             else:
-                vars[self.children[0].tok] = value
+                currentContext[self.children[0].tok] = value
         else:
-            vars[self.children[0].tok] = value
+            currentContext[self.children[0].tok] = value
     else:
         print("*** Error : type of %s isn't right ! " % self.children[0].tok)
 
@@ -97,14 +126,15 @@ def execute(self):
             print("C'est faux!")
     else:
         print(self.children[0].execute())
-
-
+    
 @addToClass(AST.WhileNode)
 def execute(self):
-    # print("while")
+    global currentContext
+
+    currentContext = currentContext.createChildren()
     while self.children[0].execute():
         self.children[1].execute()
-
+    currentContext = currentContext.parent
 
 @addToClass(AST.CompareNode)
 def execute(self):

@@ -2,6 +2,8 @@ import ply.yacc as yacc
 import AST
 from lex5 import tokens
 
+func = {}
+
 precedence = (
     ('left', 'OP'),
     ('left', 'ID'),
@@ -54,6 +56,30 @@ def p_subordinate_assign(p):
     '''subordinate : assign
         | print'''
     p[0] = p[1]
+    
+def p_args(p):
+    'args : ID'
+    p[0] = [p[1]]
+
+def p_args_rec(p):
+    'args : ID args'
+    p[0] = [p[1]] + p[2]
+
+def p_definefunction(p):
+    '''sentence : DEFINIR ID AVEC args ":" sentence'''
+    p[0] = [AST.DefineNode(p[2], p[4], [AST.ProgramNode(p[6])])]
+
+def p_callargs_expression(p):
+    '''callargs : expression'''
+    p[0] = [p[1]]
+
+def p_callargs_rec(p):
+    '''callargs : expression callargs'''
+    p[0] = [p[1]] + p[2]
+
+def p_callfunction(p):
+    '''subordinate : APPELER ID AVEC callargs'''
+    p[0] = AST.CallNode(p[2], p[4])
 
 def p_type(p):
     '''type : NOMBRE
@@ -140,8 +166,8 @@ yacc.yacc(outputdir="generated", debug=False)
 
 if __name__ == "__main__":
     import sys
-    prog = open(sys.argv[1] ).read()
-    result = yacc.parse(prog)
+    prog = open(sys.argv[1]).read()
+    result = yacc.parse(prog, debug=1)
 
     print(result)
     import os
