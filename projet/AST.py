@@ -114,9 +114,7 @@ class DefineNode(Node):
         self.args = args
 
     def __repr__(self):
-        r = "def " + self.name + "(" + ','.join(self.args) + ")"
-
-        return r
+        return f"def {self.name} ({self.args})"
 
 class CallNode(Node):
     def __init__(self, name, args):
@@ -146,9 +144,6 @@ class AssignNode(Node):
         Node.__init__(self, [tok, value])
         self.type = _type
         self.value = value
-    
-    def __repr__(self):
-        return "%s" % (self.type)
     
 class PrintNode(Node):
     type = 'print'

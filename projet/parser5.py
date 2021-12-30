@@ -58,12 +58,12 @@ def p_subordinate_assign(p):
     p[0] = p[1]
     
 def p_args(p):
-    'args : ID'
-    p[0] = [p[1]]
+    'args : LE type ID'
+    p[0] = [(p[2], p[3])]
 
 def p_args_rec(p):
-    'args : ID args'
-    p[0] = [p[1]] + p[2]
+    'args : LE type ID args'
+    p[0] = [(p[2], p[3])] + p[4]
 
 def p_definefunction(p):
     '''sentence : DEFINIR ID AVEC args ":" sentence'''

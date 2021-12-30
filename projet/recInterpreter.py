@@ -40,13 +40,13 @@ vars = {}
 
 @addToClass(AST.ProgramNode)
 def execute(self):
-    # print("program")
+    print("program")
     for c in self.children:
         c.execute()
 
 @addToClass(AST.TokenNode)
 def execute(self):
-    # print("token")
+    print("token")
     has_quote = False
     if isinstance(self.tok, str):
         has_quote = self.tok[0] == "\"" and self.tok[-1] == "\""
@@ -66,10 +66,12 @@ def execute(self):
 
 @addToClass(AST.DefineNode)
 def execute(self):
+    print("DefineNode")
     functions[self.name] = (self.children[0], self.args, currentContext)
 
 @addToClass(AST.CallNode)
 def execute(self):
+    print("CallNode")
     argsNames = functions[self.name][1]
     argsValues = [i.execute() for i in self.args]
     d = dict(zip(argsNames,argsValues))
@@ -88,7 +90,7 @@ def execute(self):
 
 @addToClass(AST.OpNode)
 def execute(self):
-    # print("opnode")
+    print("opnode")
     args = [c.execute() for c in self.children]
     if len(args) == 1:
         args.insert(0, 0)
@@ -99,7 +101,7 @@ def execute(self):
 
 @addToClass(AST.AssignNode)
 def execute(self):
-    # print("assign")
+    print("assign")
     if isinstance(self.children[1], OpNode):
         value = self.children[1].execute()
     else:
@@ -113,12 +115,12 @@ def execute(self):
         else:
             currentContext[self.children[0].tok] = value
     else:
-        print("*** Error : type of %s isn't right ! " % self.children[0].tok)
+        print("*** Error : type of %s is a %s and %s isn't ! " % (self.children[0].tok, self.type, self.children[1].tok))
 
 
 @addToClass(AST.PrintNode)
 def execute(self):
-    # print("print")
+    print("print")
     if isinstance(self.children[0].execute(), bool):
         if self.children[0].execute():
             print("C'est vrai!")
@@ -129,6 +131,7 @@ def execute(self):
     
 @addToClass(AST.WhileNode)
 def execute(self):
+    print("while")
     global currentContext
 
     currentContext = currentContext.createChildren()
@@ -138,7 +141,7 @@ def execute(self):
 
 @addToClass(AST.CompareNode)
 def execute(self):
-    # print("compare")
+    print("compare")
     if self.children[0].execute():
         self.children[1].execute()
     else:

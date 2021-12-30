@@ -1,8 +1,8 @@
-max vaut 4.
+le nombre max vaut 4.
 afficher max.
 
-definir test avec r:
-    max vaut r puis afficher max.
+definir test avec le nombre r:
+    le nombre max vaut r.
 
 appeler test avec 2.
 afficher max.
