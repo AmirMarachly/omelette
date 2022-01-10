@@ -105,26 +105,21 @@ class TokenNode(Node):
     def __repr__(self):
         return repr(self.tok)
 
-
-    
 class DefineNode(Node):
-    def __init__(self, name, args, children):
+    def __init__(self, name, children):
         Node.__init__(self, children)
         self.name = name
-        self.args = args
 
     def __repr__(self):
-        return f"def {self.name} ({self.args})"
+        return f"def {self.name}"
 
 class CallNode(Node):
-    def __init__(self, name, args):
-        Node.__init__(self)
+    def __init__(self, name, children):
+        Node.__init__(self, children)
         self.name = name
-        self.args = args
     
     def __repr__(self):
-        strArgs = [str(i).rstrip('\n') for i in self.args]
-        r = "call " + self.name + "(" + ', '.join(strArgs) + ")"
+        r = "call " + self.name
         return r
 
 class OpNode(Node):

@@ -51,7 +51,6 @@ def p_print(p):
     'print : AFFICHER expression'
     p[0] = AST.PrintNode(p[2])
 
-
 def p_subordinate_assign(p):
     '''subordinate : assign
         | print'''
@@ -59,15 +58,15 @@ def p_subordinate_assign(p):
     
 def p_args(p):
     'args : LE type ID'
-    p[0] = [(p[2], p[3])]
+    p[0] = [AST.AssignNode(p[2], AST.TokenNode(p[3]), AST.TokenNode(None))]
 
 def p_args_rec(p):
     'args : LE type ID args'
-    p[0] = [(p[2], p[3])] + p[4]
+    p[0] = [AST.AssignNode(p[2], AST.TokenNode(p[3]), AST.TokenNode(None))] + p[4]
 
 def p_definefunction(p):
     '''sentence : DEFINIR ID AVEC args ":" sentence'''
-    p[0] = [AST.DefineNode(p[2], p[4], [AST.ProgramNode(p[6])])]
+    p[0] = [AST.DefineNode(p[2], [AST.ProgramNode(p[6])] + p[4])]
 
 def p_callargs_expression(p):
     '''callargs : expression'''

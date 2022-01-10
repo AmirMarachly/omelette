@@ -39,7 +39,7 @@ tokens = (
     'NUMBER',
     'ID',
     'STRING'
-    ) + tuple(map(lambda s:s.upper(), reserved_words))
+    ) + tuple(map(lambda s:s.upper(), reserved_words))  
 
 literals = '.,:'
 

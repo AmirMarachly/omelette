@@ -40,13 +40,11 @@ vars = {}
 
 @addToClass(AST.ProgramNode)
 def execute(self):
-    print("program")
     for c in self.children:
         c.execute()
 
 @addToClass(AST.TokenNode)
 def execute(self):
-    print("token")
     has_quote = False
     if isinstance(self.tok, str):
         has_quote = self.tok[0] == "\"" and self.tok[-1] == "\""
@@ -66,31 +64,27 @@ def execute(self):
 
 @addToClass(AST.DefineNode)
 def execute(self):
-    print("DefineNode")
-    functions[self.name] = (self.children[0], self.args, currentContext)
+    functions[self.name] = (self, currentContext)
 
 @addToClass(AST.CallNode)
-def execute(self):
-    print("CallNode")
-    argsNames = functions[self.name][1]
-    argsValues = [i.execute() for i in self.args]
-    d = dict(zip(argsNames,argsValues))
-
+def execute(self):    
     #context.insert(0,d)
     global currentContext
     oldContext = currentContext
-    currentContext = functions[self.name][2].createChildren()
-    for k,v in d.items():
-        currentContext[k] = v
+    currentContext = functions[self.name][1].createChildren()
 
-    functions[self.name][0].execute()
+    for i in range(1, len(functions[self.name][0].children)):
+        d = functions[self.name][0].children[i]
+        d.execute() 
+        
+        currentContext[d.children[0].tok] = self.children[i-1].execute()
+
+    functions[self.name][0].children[0].execute()
 
     currentContext = oldContext
-    #del context[0]
 
 @addToClass(AST.OpNode)
 def execute(self):
-    print("opnode")
     args = [c.execute() for c in self.children]
     if len(args) == 1:
         args.insert(0, 0)
@@ -101,11 +95,19 @@ def execute(self):
 
 @addToClass(AST.AssignNode)
 def execute(self):
-    print("assign")
     if isinstance(self.children[1], OpNode):
         value = self.children[1].execute()
     else:
         value = self.children[1].tok
+    
+    if value is None:
+        if self.type == "text":
+            value = ""
+        elif self.type == "booleen":
+            value = True
+        elif self.type == "nombre":
+            value = 0.
+    
     if isinstance(value, types[self.type]):
         if isinstance(value, str):
             if value in bools.keys():
@@ -120,7 +122,6 @@ def execute(self):
 
 @addToClass(AST.PrintNode)
 def execute(self):
-    print("print")
     if isinstance(self.children[0].execute(), bool):
         if self.children[0].execute():
             print("C'est vrai!")
@@ -131,7 +132,6 @@ def execute(self):
     
 @addToClass(AST.WhileNode)
 def execute(self):
-    print("while")
     global currentContext
 
     currentContext = currentContext.createChildren()
@@ -141,7 +141,6 @@ def execute(self):
 
 @addToClass(AST.CompareNode)
 def execute(self):
-    print("compare")
     if self.children[0].execute():
         self.children[1].execute()
     else:
