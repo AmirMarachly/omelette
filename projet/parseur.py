@@ -1,8 +1,6 @@
 import ply.yacc as yacc
 import AST
-from lex5 import tokens
-
-func = {}
+from lex import tokens
 
 precedence = (
     ('left', 'OP'),
@@ -25,37 +23,36 @@ operators = {
     "plus petit que ou egal" : lambda x, y: x<=y
 }
 
-
+### A program is serie of sentences
 def p_program_sentence(p):
     'program : sentence'
     p[0] = AST.ProgramNode(p[1])
-
 
 def p_program_recursive(p):
     'program : sentence program'
     p[0] = AST.ProgramNode(p[1] + p[2].children)
 
-
+### A sentence is a list of subordinates.
 def p_sentence_subordinate(p):
     'sentence : subordinate "."'
     p[0] = [p[1]]
-
 
 def p_sentence_recursive(p):
     '''sentence : subordinate PUIS sentence
         | subordinate "," sentence'''
     p[0] = [p[1]] + p[3]
 
-
-def p_print(p):
-    'print : AFFICHER expression'
-    p[0] = AST.PrintNode(p[2])
-
 def p_subordinate_assign(p):
     '''subordinate : assign
         | print'''
     p[0] = p[1]
+
+def p_print(p):
+    'print : AFFICHER expression'
+    p[0] = AST.PrintNode(p[2])
     
+
+### A function is a sentence executed when called with specifics arguments
 def p_args(p):
     'args : LE type ID'
     p[0] = [AST.AssignNode(p[2], AST.TokenNode(p[3]), AST.TokenNode(None))]
