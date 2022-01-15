@@ -1,2 +1,2 @@
-le nombre a vaut 3 additionne de 2. afficher a puis afficher 3, afficher 5, afficher 4.
-le nombre b vaut 5. afficher b additionne de a.
+le nombre x vaut 3 additionne de 2. afficher x puis afficher 3, afficher 5, afficher 4.
+le nombre b vaut 5. afficher b additionne de x.

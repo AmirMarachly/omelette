@@ -26,7 +26,7 @@ reserved_words = (
     'le',
     'booleen',
     'nombre',
-    'text',
+    'texte',
     'vrai',
     'faux',
     'a',

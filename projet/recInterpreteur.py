@@ -18,7 +18,7 @@ operations = {
 }
 
 types = {
-    "text" : str,
+    "texte" : str,
     "nombre" : float,
     "booleen" : str 
 }
@@ -54,12 +54,13 @@ def execute(self):
             try:
                 r = currentContext[self.tok]
                 if r != None:
+                    if isinstance(r, str) and r[0] == "\"" and r[-1] == "\"":
+                        return r[1:-1]
                     return r
             except KeyError:
                 print("*** Error : variable %s undefined ! " % self.tok)
     if has_quote:
         return self.tok[1:-1]
-        
     return self.tok
 
 @addToClass(AST.DefineNode)
@@ -101,7 +102,7 @@ def execute(self):
         value = self.children[1].tok
     
     if value is None:
-        if self.type == "text":
+        if self.type == "texte":
             value = ""
         elif self.type == "booleen":
             value = True

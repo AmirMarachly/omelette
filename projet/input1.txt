@@ -1,4 +1,3 @@
-Tant que variable est plus petit que 3 alors, afficher variable. Additionner variable de 3 puis afficher variable.
-
-Test devient vrai.
-Si test alors, test devient faux.
+le nombre x vaut 2, afficher x.
+tant que x est plus petit que 5 alors afficher x additionne de 1, le nombre x vaut x additionne de 1.
+afficher "Fini".

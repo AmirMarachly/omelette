@@ -1,8 +1,8 @@
 le nombre max vaut 4.
 afficher max.
 
-definir test avec le text r:
-    le text max vaut r.
+definir t avec le texte r:
+    le texte max vaut r.
 
-appeler test avec "2".
+appeler t avec "2".
 afficher max.

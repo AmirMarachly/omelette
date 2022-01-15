@@ -1,1 +1,0 @@
-a vaut 0. b vaut 2. tant que a soustrait de 10 alors afficher a, a vaut a additionne de 1 puis b vaut 4, tant que b alors b vaut b soustrait de 1, afficher b.

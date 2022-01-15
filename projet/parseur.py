@@ -79,7 +79,7 @@ def p_callfunction(p):
 
 def p_type(p):
     '''type : NOMBRE
-        | TEXT
+        | TEXTE
         | BOOLEEN'''
     p[0] = p[1]
 

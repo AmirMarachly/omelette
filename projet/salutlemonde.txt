@@ -1,0 +1,2 @@
+le texte phrase vaut "Salut le monde!".
+afficher phrase.
