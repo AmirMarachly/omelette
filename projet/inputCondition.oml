@@ -1,0 +1,10 @@
+le nombre x vaut 16, le booleen bool vaut vrai.
+si x est plus grand que 15 
+    alors tant que bool 
+        alors le nombre x vaut x additionne de 1, 
+        si x est plus grand que 20 
+            alors le booleen bool vaut faux.
+        sinon rien.
+sinon rien.
+afficher x,
+afficher bool.

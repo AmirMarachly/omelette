@@ -17,24 +17,22 @@ operators = {
     "egal" : lambda x,y: x == y,
     "plus grand" : lambda x,y: x>y,
     "plus petit" : lambda x,y: x<y,
-    "moins grand" : lambda x,y: x<y,
-    "moins petit" : lambda x,y: x>y,
     "plus grand que ou egal" : lambda x, y: x>=y,
     "plus petit que ou egal" : lambda x, y: x<=y
 }
 
-### A program is serie of sentences
+### A program is serie of one or more sentences
 def p_program_sentence(p):
-    'program : sentence'
+    '''program : sentence'''
     p[0] = AST.ProgramNode(p[1])
 
 def p_program_recursive(p):
-    'program : sentence program'
+    '''program : sentence program'''
     p[0] = AST.ProgramNode(p[1] + p[2].children)
 
-### A sentence is a list of subordinates.
+### A sentence is a list of one or more subordinates.
 def p_sentence_subordinate(p):
-    'sentence : subordinate "."'
+    '''sentence : subordinate "."'''
     p[0] = [p[1]]
 
 def p_sentence_recursive(p):
@@ -48,23 +46,25 @@ def p_subordinate_assign(p):
     p[0] = p[1]
 
 def p_print(p):
-    'print : AFFICHER expression'
+    '''print : AFFICHER expression'''
     p[0] = AST.PrintNode(p[2])
     
 
 ### A function is a sentence executed when called with specifics arguments
 def p_args(p):
-    'args : LE type ID'
+    '''args : LE type ID'''
     p[0] = [AST.AssignNode(p[2], AST.TokenNode(p[3]), AST.TokenNode(None))]
 
+### args are separated by spaces
 def p_args_rec(p):
-    'args : LE type ID args'
+    '''args : LE type ID args'''
     p[0] = [AST.AssignNode(p[2], AST.TokenNode(p[3]), AST.TokenNode(None))] + p[4]
 
 def p_definefunction(p):
     '''sentence : DEFINIR ID AVEC args ":" sentence'''
     p[0] = [AST.DefineNode(p[2], [AST.ProgramNode(p[6])] + p[4])]
 
+### the args will take an expression as value
 def p_callargs_expression(p):
     '''callargs : expression'''
     p[0] = [p[1]]
@@ -87,7 +87,7 @@ def p_assign(p):
     '''assign : LE type ID VAUT expression'''
     p[0] = AST.AssignNode(p[2], AST.TokenNode(p[3]), p[5])
 
-
+### an expression is a numeric value, a string value or a boolean value
 def p_expression_num(p):
     '''expression : NUMBER'''
     p[0] = AST.TokenNode(p[1])
@@ -102,19 +102,19 @@ def p_expression_bool(p):
     p[0] = AST.TokenNode(p[1])
 
 def p_expression_id(p):
-    'expression : ID'
+    '''expression : ID'''
     p[0] = AST.TokenNode(p[1])
 
-
+### a while can only execute one sentence, 
+### to execute multiples instructions, we use subordinates in the sentence
 def p_sentence_while(p):
-    'sentence : TANT QUE expression ALORS sentence'
+    '''sentence : TANT QUE expression ALORS sentence'''
     p[0] = [AST.WhileNode([p[3], AST.ProgramNode(p[5])])]
 
-
+### both of the "then sentence" and "else sentence" have to be described
 def p_sentence_compare(p):
     '''sentence : SI expression ALORS sentence SINON sentence'''
     p[0] = [AST.CompareNode([p[2], AST.ProgramNode(p[4]), AST.ProgramNode(p[6])])]
-
 
 def p_operator(p):
     '''operator : ADDITIONNE DE %prec OP
@@ -138,25 +138,21 @@ def p_operator_comparator_equal(p):
     | EST MOINS PETIT QUE OU EGAL'''
     p[0] = p[1] + ' ' + p[2] + ' ' + p[3] + ' ' + p[4] + ' ' + p[5] + ' ' + p[6] 
 
-
-def p_sentence_nothing(p):
-    '''sentence : RIEN "." '''
-    p[0] = AST.ProgramNode()
-
-
 def p_expression_op(p):
     '''expression : expression operator expression %prec OP'''
     p[0] = AST.OpNode(p[2], [p[1], p[3]])
-    
+
+### to make an empty sentence. Example : when we make a "if" and we don't need an else sentence
+def p_sentence_nothing(p):
+    '''sentence : RIEN "." '''
+    p[0] = AST.ProgramNode()    
 
 def p_error(p):
     print("Syntax error in line %d" % p.lineno)
     # yacc.errok()
 
-
 def parse(prog):
     return yacc.parse(prog)
-
 
 yacc.yacc(outputdir="generated", debug=False)
 

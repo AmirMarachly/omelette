@@ -1,0 +1,9 @@
+le nombre max vaut 4.
+afficher max.
+
+definir t avec le texte r le nombre x:
+    le texte max vaut r,
+    afficher x additionne de 2.
+
+appeler t avec "2" 3.
+afficher max.

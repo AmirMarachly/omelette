@@ -106,6 +106,9 @@ class TokenNode(Node):
         return repr(self.tok)
 
 class DefineNode(Node):
+    '''name is the function's name
+       the first children represents the function's content (the sentence)
+       the others are the arguments (AssignNodes set to None)'''
     def __init__(self, name, children):
         Node.__init__(self, children)
         self.name = name
@@ -114,6 +117,8 @@ class DefineNode(Node):
         return f"def {self.name}"
 
 class CallNode(Node):
+    '''name is the function's name
+       the childrens are the values the arguments must take'''
     def __init__(self, name, children):
         Node.__init__(self, children)
         self.name = name
@@ -123,6 +128,9 @@ class CallNode(Node):
         return r
 
 class OpNode(Node):
+    '''op is the operator's type in string
+       the first children is the left expression
+       the second children is the right exoression'''
     def __init__(self, op, children):
         Node.__init__(self,children)
         self.op = op

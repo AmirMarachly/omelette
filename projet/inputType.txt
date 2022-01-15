@@ -1,4 +1,0 @@
-le nombre n vaut 32. afficher n puis afficher 3.
-le texte n vaut "ça va". afficher n.
-le booleen c vaut vrai, afficher c.
-afficher "salut comment ça va".
